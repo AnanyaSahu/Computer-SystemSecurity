@@ -1,6 +1,8 @@
 
 from flask import Flask, render_template, request
 
+from backend import backend
+
 # mysql = MySQL()
 app = Flask(__name__)
 # CORS(app)
@@ -8,10 +10,21 @@ app = Flask(__name__)
 
 
 
-# @app.route('/api/<name>', methods=['GET'])
-# def  getBookingsForCustomer(name):
-    # b = bookTicketsForCustomer()
-    # return b.getBookingsForCustomer(name)
+@app.route('/getMsg/<userId>', methods=['GET'])
+def  getBookingsForCustomer(userId):
+    b = backend()
+    return b.getMessageForUser(userId)
+
+@app.route('/createMsg/<userId>', methods=['POST'])
+def  getBookingsForCustomer(userId):
+    # request.json
+    b = backend()
+    return b.createMessageForUser(userId, request.json)
+
+@app.route('/deleteMsg/<msgId>', methods=['PUT'])
+def  getBookingsForCustomer(userId):
+    b = backend()
+    return b.getMessageForUser(userId)
 
 # This will render the template on cloud
 @app.route('/')
