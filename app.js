@@ -18,6 +18,7 @@ function getMsgsForUser() {
         arealist.innerHTML = ele  
 }).catch( err => {
     alert('unable to fetch user messages')
+    console.log(err)
   })
 }
 
@@ -43,6 +44,7 @@ function createMsgsForUser() {
         arealist.innerHTML = ele  
 }).catch( err => {
     alert('unable to create user messages')
+    console.log(err)
   })
 }
 
@@ -64,6 +66,7 @@ function deleteMsgsForUser() {
         // arealist.innerHTML = ele  
 }).catch( err => {
     alert('unable to delete user messages')
+    console.log(err)
   })
 }
 
