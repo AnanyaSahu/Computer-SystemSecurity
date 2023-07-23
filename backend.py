@@ -5,7 +5,7 @@ class backend:
   def __init__(self):
     pass
       # this method will get the message
-  def get_msgs(self,userId):
+  def getMessagesForUser(self,userId):
     d = databaseConnection()
     cursor = d.openDbConnection()
     query = "select notificationId,messageText,senderId from [dbo].[notifications] where [isOpened] = 0 and [recieverId] = "+str(userId)+";" 
@@ -15,7 +15,7 @@ class backend:
   
 
         # this method will create the message
-  def create_msgs(self,userId, params):
+  def createMessageForUser(self,userId, params):
     d = databaseConnection()
     cursor = d.openDbConnection()
     query = "insert into [dbo].[notifications]  values (?,?,?,?)" 
@@ -26,7 +26,7 @@ class backend:
 
 
         # this method will delete the opned message
-  def delete_msgs(self,msgId):
+  def deleteUserMessages(self,msgId):
     d = databaseConnection()
     cursor = d.openDbConnection()
     query = "update [dbo].[notifications] set [isOpened] = 1 where [notificationId]= "+str(msgId)+";" 

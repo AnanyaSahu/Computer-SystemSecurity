@@ -11,20 +11,20 @@ app = Flask(__name__)
 
 
 @app.route('/getMsg/<userId>', methods=['GET'])
-def  getBookingsForCustomer(userId):
+def  getMessagesForUser(userId):
     b = backend()
     return b.getMessageForUser(userId)
 
 @app.route('/createMsg/<userId>', methods=['POST'])
-def  getBookingsForCustomer(userId):
+def  createMessageForUser(userId):
     # request.json
     b = backend()
     return b.createMessageForUser(userId, request.json)
 
 @app.route('/deleteMsg/<msgId>', methods=['PUT'])
-def  getBookingsForCustomer(userId):
+def  deleteUserMessages(msgId):
     b = backend()
-    return b.getMessageForUser(userId)
+    return b.deleteUserMessages(msgId)
 
 # This will render the template on cloud
 @app.route('/')
