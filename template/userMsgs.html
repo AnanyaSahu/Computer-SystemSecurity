@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Inbox</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .message-box {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        .message-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        .message-item p {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="message-box">
+        <h2>Welcome, YourUsername!</h2>
+        <div id="messages"></div>
+    </div>
+
+    <script>
+        async function fetchMessages() {
+            try {
+                const response = await fetch('http://127.0.0.1:8080');
+                const data = await response.json();
+
+                const messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML = '';
+
+                if (data.messages.length === 0) {
+                    messagesDiv.innerHTML = '<p> No messages yet. </p>';
+                } else {
+                    data.messages.forEach((message) => {
+                        const messageItem = document.createElement('div');
+                        messageItem.classList.add('message-item');
+                        messageItem.innerHTML = `
+              <p>From: ${message.sender}</p>
+              <p>${message.message}</p>
+            `;
+                        messagesDiv.appendChild(messageItem);
+                    });
+                }
+            } catch (error) {
+                console.error('Failed to fetch messages:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchMessages();
+        });
+    </script>
+</body>
+
+</html>
