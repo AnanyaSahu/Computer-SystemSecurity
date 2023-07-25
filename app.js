@@ -70,4 +70,13 @@ function deleteMsgsForUser() {
   })
 }
 
+function navigate(page) {
+    if(page == 'createMsg') {
+        window.location.assign("http://127.0.0.1:5500/template/createMsg.html");
+
+    } else if(page == 'readMsg') {
+        window.location.assign("http://127.0.0.1:5500/template/userMsgs.html");
+    }
+}
+
 
