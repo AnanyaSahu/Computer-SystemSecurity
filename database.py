@@ -12,11 +12,22 @@ class databaseConnection:
 # connect to database
     def openDbConnection(self):
         try:
-            dbConnection = connection = pyodbc.connect('Driver={SQL Server};'
-            'Server=<servername>'
-            'Database=<databasename>;'
-            'Trusted_Connection=yes;')
+            dbConnection = connection = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'
+            'Server=sqlpython.centralindia.cloudapp.azure.com;'
+            'Database=master;'
+            'encrypt=yes;'
+            'TrustServerCertificate=yes;'
+            'UID=sa;'
+            'PWD=Sqlserver@123',autocommit = True)
+            connection.close()
 
+            dbConnection=connection = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'
+            'Server=sqlpython.centralindia.cloudapp.azure.com;'
+            'Database=FlashMessages;'
+            'encrypt=yes;'
+            'TrustServerCertificate=yes;'
+            'UID=sa;'
+            'PWD=Sqlserver@123',autocommit = True)
             if dbConnection.getinfo != None:
                 cursor = dbConnection.cursor()
             return cursor
