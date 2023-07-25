@@ -85,10 +85,10 @@ function deleteMsgsForUser() {
 
 function navigate(page) {
     if(page == 'createMsg') {
-        window.location.assign(prefix+"/templates/createMsg.html");
+        window.location.assign("createMsg");
 
     } else if(page == 'readMsg') {
-        window.location.assign(prefix+"/templates/userMsgs.html");
+        window.location.assign("userMsgs");
     }
 }
 
