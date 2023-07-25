@@ -1,25 +1,38 @@
 const prefix = 'http://127.0.0.1:8080'
 
-function getMsgsForUser() {
-    var arealist = document.getElementById("area-list");
+const prefix1 = "http://127.0.0.1:5500"
+
+let listOfMessages = []
+
+function getMsgsForUser(userId) {
+    userId = '2'
+    var msgEle = document.getElementById("messages");
     ele =''
     fetch(prefix+'/getMsg/'+userId, {
         method: 'GET',
     }).then(response => response.json())
     .then((data) => {
-        if(len(data.rows) == 0) {
+    
+        if(data.rows.length == 0) {
+            
             ele+=" <div class='cursor-pointer'>No New Messages</div>"
         } else {
+            listOfMessages = data.rows
             for (row in data.rows) {
                 r = data.rows[row]
-                ele+=" <div class='cursor-pointer' onclick='selectArea("+ r[0]+")'>"+ r[0]+","+ r[1]+"</div>"
+                ele+=" <div class='cursor-pointer msg-background' onclick='showMsg("+row+")'>"+  r[2]+"</div> <br>"
             }
         }
-        arealist.innerHTML = ele  
+        msgEle.innerHTML = ele  
 }).catch( err => {
     alert('unable to fetch user messages')
     console.log(err)
   })
+}
+
+function showMsg(msg) {
+        console.log(listOfMessages[msg])
+        alert(listOfMessages[msg][1])
 }
 
 function createMsgsForUser() {
@@ -33,15 +46,15 @@ function createMsgsForUser() {
         })
     }).then(response => response.json())
     .then((data) => {
-        if(len(data.rows) == 0) {
-            ele+=" <div class='cursor-pointer'>No New Messages</div>"
-        } else {
-            for (row in data.rows) {
-                r = data.rows[row]
-                ele+=" <div class='cursor-pointer' onclick='selectArea("+ r[0]+")'>"+ r[0]+","+ r[1]+"</div>"
-            }
-        }
-        arealist.innerHTML = ele  
+        // if(len(data.rows) == 0) {
+        //     ele+=" <div class='cursor-pointer'>No New Messages</div>"
+        // } else {
+        //     for (row in data.rows) {
+        //         r = data.rows[row]
+        //         ele+=" <div class='cursor-pointer' onclick='selectArea("+ r[0]+")'>"+ r[0]+","+ r[1]+"</div>"
+        //     }
+        // }
+        // arealist.innerHTML = ele  
 }).catch( err => {
     alert('unable to create user messages')
     console.log(err)
@@ -72,10 +85,10 @@ function deleteMsgsForUser() {
 
 function navigate(page) {
     if(page == 'createMsg') {
-        window.location.assign("http://127.0.0.1:5500/template/createMsg.html");
+        window.location.assign(prefix+"/templates/createMsg.html");
 
     } else if(page == 'readMsg') {
-        window.location.assign("http://127.0.0.1:5500/template/userMsgs.html");
+        window.location.assign(prefix+"/templates/userMsgs.html");
     }
 }
 

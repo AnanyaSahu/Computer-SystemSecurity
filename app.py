@@ -13,7 +13,7 @@ app = Flask(__name__)
 @app.route('/getMsg/<userId>', methods=['GET'])
 def  getMessagesForUser(userId):
     b = backend()
-    return b.getMessageForUser(userId)
+    return b.getMessagesForUser(userId)
 
 @app.route('/createMsg/<userId>', methods=['POST'])
 def  createMessageForUser(userId):
@@ -26,11 +26,18 @@ def  deleteUserMessages(msgId):
     b = backend()
     return b.deleteUserMessages(msgId)
 
+@app.route('/getMsg/<msgId>', methods=['GET'])
+def  getMessage(msgId):
+    b = backend()
+    return b.getMessage(msgId)
+
+
 # This will render the template on cloud
 @app.route('/')
 def  landPage():
     return render_template('index.html')
 
 if __name__ == "__main__":
- app.run(host='0.0.0.0',port='8080', ssl_context=('../cert.pem', '../privkey.pem'))
+     app.run(host='0.0.0.0',port='8080')
+#  app.run(host='0.0.0.0',port='8080', ssl_context=('../cert.pem', '../privkey.pem'))
 

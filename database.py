@@ -12,6 +12,13 @@ class databaseConnection:
 # connect to database
     def openDbConnection(self):
         try:
+
+            # dbConnection = connection = pyodbc.connect('Driver={SQL Server};'
+            # 'Server=ANNA\MSSQLSERVER03;'
+            # 'Database=flashMessage;'
+            # 'Trusted_Connection=yes;')
+                        
+
             dbConnection = connection = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'
             'Server=sqlpython.centralindia.cloudapp.azure.com;'
             'Database=master;'

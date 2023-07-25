@@ -1,14 +1,15 @@
 from database import databaseConnection
 
 # import required module
-from cryptography.fernet import Fernet
-global fernetObj;
+# from cryptography.fernet import Fernet
+# global fernetObj;
 
 class backend:
   def __init__(self):
+    pass
     # key generation
-    key = "b'Nse-YkE5Y_Me_nTciyCd9Elr0F3nlyj0uhkRGcsegD8='"
-    self.fernetObj = Fernet(key)
+    # key = "b'Nse-YkE5Y_Me_nTciyCd9Elr0F3nlyj0uhkRGcsegD8='"
+    # self.fernetObj = Fernet(key)
 
 
       # this method will get the message
@@ -19,11 +20,11 @@ class backend:
     query = "select notificationId,messageText,senderId from [dbo].[notifications] where [isOpened] = 0 and [recieverId] = "+str(userId)+";" 
     record = cursor.execute(query).fetchall()
     r= [tuple(row) for row in record]
-    for tup in r:
-      newTuple = (tup[0], self.fernetObj.decrypt(tup[1]), tup[2])
-      list.append(newTuple)
+    # for tup in r:
+    #   newTuple = (tup[0], self.fernetObj.decrypt(tup[1]), tup[2])
+    #   list.append(newTuple)
     
-    return {'rows': list}
+    return {'rows': r}
   
 
         # this method will create the message
@@ -31,12 +32,22 @@ class backend:
     d = databaseConnection()
     cursor = d.openDbConnection()
     query = "insert into [dbo].[notifications]  values (?,?,?,?)" 
-    encryptedMsg = self.fernetObj.encrypt(params['message'])
-    c= cursor.execute(query, str( userId),  str(params['recieverId']), encryptedMsg , 1)
-    record = c.fetchall()
-    r= [tuple(row) for row in record]
-    return {'rows': r}
+    # encryptedMsg = self.fernetObj.encrypt(params['message'])
+    c= cursor.execute(query, str( userId),  str(params['recieverId']), params['message'] , 0)
+    c.commit()
+    # record = c.fetchall()
+    # r= [tuple(row) for row in record]
+    # return {'rows': r}
+    return {'msg': 'msg sent'}
 
+  #       # this method will delete the opned message
+  # def getMessage(self,msgId):
+  #   d = databaseConnection()
+  #   cursor = d.openDbConnection()
+  #   query = "select messageText from [dbo].[notifications]  where [notificationId]= "+str(msgId)+";" 
+  #   record = cursor.execute(query).fetchall()
+  #   r= [tuple(row) for row in record]
+  #   return {'rows': r}
 
         # this method will delete the opned message
   def deleteUserMessages(self,msgId):

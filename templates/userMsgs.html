@@ -4,44 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- For CLoud Uncomment -->
+    <link rel="stylesheet"  href= "{{ url_for('static',filename='css/global.css') }}">
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+
+    <!-- FOr local -->
+
+    <!-- <link rel="stylesheet"  href= "../static/css/global.css">
+    <script src="../static/js/app.js" type="text/javascript"></script> -->
     <title>Message Inbox</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
 
-        .message-box {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-        }
-
-        .message-item {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            background-color: #fff;
-        }
-
-        .message-item p {
-            margin: 0;
-        }
-    </style>
 </head>
 
 <body>
     <div class="message-box">
         <h2>Welcome, YourUsername!</h2>
+        <div><button onclick="navigate('createMsg')">+</button></div>
+        <br>
         <div id="messages"></div>
     </div>
 
     <script>
         async function fetchMessages() {
             try {
-                const response = await fetch('http://127.0.0.1:8080');
-                const data = await response.json();
+                const response = getMsgsForUser('');
+                
 
                 const messagesDiv = document.getElementById('messages');
                 messagesDiv.innerHTML = '';
