@@ -34,12 +34,12 @@ def  getMessage(msgId):
 
 # This will render the template on cloud
 @app.route('/createMsg')
-def  landPage():
+def  createMsgPage():
     return render_template('createMsg.html')
 
 # This will render the template on cloud
 @app.route('/userMsgs')
-def  landPage():
+def  userMsgsPage():
     return render_template('userMsgs.html')
 
 # This will render the template on cloud
