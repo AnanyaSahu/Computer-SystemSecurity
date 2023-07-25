@@ -4,16 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-signin-client_id" content="223136422401-rknjrq0movvf7blkr6d3sj7nult7k7b4.apps.googleusercontent.com">
-    <meta Content-Security-Policy-Report-Only: script-src https://accounts.google.com/gsi/client; frame-src https://accounts.google.com/gsi/; connect-src https://accounts.google.com/gsi/; />
     <title>Flash message</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
     <!-- <script src="js/jquery.min.js"></script> -->
-    <link rel="stylesheet" href="Computer-SystemSecurity/global.css">
+    <link rel="stylesheet" href="..//global.css">
     <script src="../app.js" type="text/javascript"></script>
+    <script>
+
+        function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+          console.log('statusChangeCallback');
+          console.log(response);                   // The current login status of the person.
+          if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+            testAPI();  
+          } else {                                 // Not logged into your webpage or we are unable to tell.
+            document.getElementById('status').innerHTML = 'Please log ' +
+              'into this webpage.';
+          }
+        }
+      
+      
+        function checkLoginState() {               // Called when a person is finished with the Login Button.
+          FB.getLoginStatus(function(response) {   // See the onlogin handler
+            statusChangeCallback(response);
+          });
+        }
+      
+      
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '242013298711294',
+            cookie     : true,                     // Enable cookies to allow the server to access the session.
+            xfbml      : true,                     // Parse social plugins on this webpage.
+            version    : 'v6.0'           // Use this Graph API version for this call.
+          });
+      
+      
+          FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+            statusChangeCallback(response);        // Returns the login status.
+          });
+        };
+       
+        function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+          console.log('Welcome!  Fetching your information.... ');
+          FB.api('/me', function(response) {
+            console.log('Successful login for: ' + response.name);
+            document.getElementById('status').innerHTML =
+              'Thanks for logging in, ' + response.name + '!';
+          });
+        }
+      
+      </script>
 
  
 </head>
@@ -26,12 +67,20 @@
             <a class="active" href="../index.html"><b>Home</b></a> -->
         </div>
 
-        <!-- this code is taken from https://www.codexworld.com/login-with-google-account-using-javascript/#:~:text=JavaScript%20Code%3A&text=Specify%20App%20Client%20ID%20%E2%80%93%20Add,in%20the%20Google%20API%20Console.&text=The%20following%20code%20handles%20the,in%20button%20with%20custom%20settings. -->
-        <!-- Display Google sign-in button -->
-        <div id="gSignIn"></div>
+        
+<!-- The JS SDK Login Button -->
 
-        <!-- Show the user profile details -->
-        <div class="userContent" style="display: none;"></div>
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div id="status">
+</div>
+
+<!-- Load the JS SDK asynchronously -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+
+
 
 
 
@@ -42,59 +91,7 @@
     <script></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script>
-        // Render Google Sign-in button
-        function renderButton() {
-            gapi.signin2.render('gSignIn', {
-                'scope': 'profile email',
-                'width': 240,
-                'height': 50,
-                'longtitle': true,
-                'theme': 'dark',
-                'onsuccess': onSuccess,
-                'onfailure': onFailure
-            });
-        }
-        
-        // Sign-in success callback
-        function onSuccess(googleUser) {
-            // Get the Google profile data (basic)
-            //var profile = googleUser.getBasicProfile();
-            
-            // Retrieve the Google account data
-            gapi.client.load('oauth2', 'v2', function () {
-                var request = gapi.client.oauth2.userinfo.get({
-                    'userId': 'me'
-                });
-                request.execute(function (resp) {
-                    // Display the user details
-                    var profileHTML = '<h3>Welcome '+resp.given_name+'! <a href="javascript:void(0);" onclick="signOut();">Sign out</a></h3>';
-                    profileHTML += '<img src="'+resp.picture+'"/><p><b>Google ID: </b>'+resp.id+'</p><p><b>Name: </b>'+resp.name+'</p><p><b>Email: </b>'+resp.email+'</p><p><b>Gender: </b>'+resp.gender+'</p><p><b>Locale: </b>'+resp.locale+'</p><p><b>Google Profile:</b> <a target="_blank" href="'+resp.link+'">click to view profile</a></p>';
-                    document.getElementsByClassName("userContent")[0].innerHTML = profileHTML;
-                    
-                    document.getElementById("gSignIn").style.display = "none";
-                    document.getElementsByClassName("userContent")[0].style.display = "block";
-                });
-            });
-        }
-        
-        // Sign-in failure callback
-        function onFailure(error) {
-            alert(error);
-        }
-        
-        // Sign out the user
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-                document.getElementsByClassName("userContent")[0].innerHTML = '';
-                document.getElementsByClassName("userContent")[0].style.display = "none";
-                document.getElementById("gSignIn").style.display = "block";
-            });
-            
-            auth2.disconnect();
-        }
-        </script>
+
 </body>
 
 </html>
