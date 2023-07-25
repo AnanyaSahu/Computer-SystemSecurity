@@ -30,7 +30,7 @@
           } else {                                 // Not logged into your webpage or we are unable to tell.
             document.getElementById('status').innerHTML = 'Please log ' +
               'into this webpage.';
-              // window.location.assign("/templates/userMsgs.html");  // remove line later
+              window.location.assign("/templates/userMsgs.html");  // remove line later
           }
         }
       
@@ -62,7 +62,7 @@
             console.log('Successful login for: ' + response.name);
             document.getElementById('status').innerHTML =
               'Thanks for logging in, ' + response.name + '!';
-              window.location.assign("userMsgs.html");  
+              // window.location.assign("userMsgs.html");  
               
           });
         }
