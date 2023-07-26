@@ -37,10 +37,13 @@
           });
 
         function logout() {
+            console.log('in logout method')
             FB.logout(function(response) {
               // user is now logged out
+              
               localStorage.clear();
-              sessionStorage.clear()
+              sessionStorage.clear();
+              console.log('in  FB.logout logout method')
             });
         }
         async function fetchMessages() {
