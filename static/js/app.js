@@ -41,9 +41,23 @@ function getMsgsForUser() {
   })
 }
 
-function showMsg(msg) {
+async function showMsg(msg) {
         console.log(listOfMessages[msg])
-        alert(listOfMessages[msg][1])
+        // alert(listOfMessages[msg][1])
+        //decrypt message
+        const privateKeyData = localStorage.getItem("privateKey");
+        const privateKey = await window.crypto.subtle.importKey(
+            "jwk",
+            JSON.parse(privateKeyData),
+            {
+                name: "RSA-OAEP",
+                hash: { name: "SHA-256" },
+            },
+            true,
+            ["decrypt"]
+        );
+        console.log('decrypted msg',await decryptWithPrivateKey(privateKey, listOfMessages[msg][1]))
+        alert(await decryptWithPrivateKey(privateKey, listOfMessages[msg][1]))
 }
 
 function createMsgsForUser() {
