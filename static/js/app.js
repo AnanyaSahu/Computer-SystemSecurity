@@ -8,6 +8,11 @@ let UserDetails = {
     pubKey: ''
 }
 
+let loggedInUSer = {
+    email: '',
+    name: ''
+}
+
 function getMsgsForUser(userId) {
     userId = '2'
     var msgEle = document.getElementById("messages");
@@ -89,14 +94,25 @@ function navigate(page) {
 }
 
 
-function getUSerData(req) {
-    fetch('https://graph.facebook.com/' + 
-    req.userID+"?fields=id,name,email&access_token="+ req.accessToken ).then(response => response.json())
-    .then((data) => {
-        console.log('user Data from facebook')
-        console.log(data)
-        UserDetails.emailId = data.email;
-      
+async function getUSerData(req) {
+    console.log('getUSerData')
+    // await fetch('https://graph.facebook.com/' + 
+    // req.userID+"?fields=id,name,email&access_token="+ req.accessToken ).then(response => response.json())
+    // .then(async (data) => {
+    //     console.log('user Data from facebook')
+    //     console.log(data)
+    loggedInUSer.email = data.email,
+    loggedInUSer.name = data.name
+
+        // Generate and display the RSA public key
+        const rsaKeyPair = await generateRSAKeyPair();
+        const publicKey = rsaKeyPair.publicKey;
+        const publicKeyData = await exportPublicKey(publicKey);
+        const privateKey = rsaKeyPair.privateKey;
+        const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
+        localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
+        savePublicKey(publicKeyData)
+
 
 //         email
 // : 
@@ -107,10 +123,12 @@ function getUSerData(req) {
 // name
 // : 
 // "Ananya Sahu"
-}).catch( err => {
-    alert('unable to delete user messages')
-    console.log(err)
-  })
+
+
+// }).catch( err => {
+//     alert('unable to delete user messages')
+//     console.log(err)
+//   })
 }
 
 
@@ -131,10 +149,21 @@ function checkUserAvailabliity(){
             sendBtn.style.display = 'none'
             notFound.innerHTML = "<div>User is not available</div>"
             //no user
-        } else {
-            messageArea.style.display = 'block'
-            sendBtn.style.display = 'block'
-            notFound.innerHTML = ""
+        } 
+        
+        else {
+            messageArea.style.display = 'none'
+            sendBtn.style.display = 'none'
+            UserDetails.emailId = data[0][0]
+            UserDetails.pubKey = data[0][1]
+
+            if(   UserDetails.pubKey  != '') {
+                alert('user offline')
+            } else {
+                messageArea.style.display = 'block'
+                sendBtn.style.display = 'block'
+                notFound.innerHTML = ""
+            }
             // email = data[0][0]
             // pubkey = data[0][1]
         //    user is online
@@ -152,13 +181,15 @@ function sendMsg(){
     const sender = '1'; // Replace this with the actual sender's username.
     const recipient = document.getElementById('recipient').value;
     const message = document.getElementById('message').value;
+    encryptMessage = encryptMessage(UserDetails.pubKey, message)
+    console.log(encryptMessage)
 
     const response =  fetch('/createMsg/'+sender, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message:message , recieverId:recipient }),
+        body: JSON.stringify({ message:encryptMessage , recieverId:recipient }),
     });
 
     if (response.ok) {
@@ -180,4 +211,22 @@ function clearPublicKey(res){
         console.log(err)
       })
     
+}
+
+
+
+function savePublicKey(publicKey){
+    fetch(prefix+'/generateKey/'+UserDetails.emailId, {
+        method: 'PUT',
+        body: JSON.stringify({
+            publicKey:publicKey 
+        })
+    }).then(response => response.json())
+    .then((data) => {
+
+}).catch( err => {
+    alert('unable to delete user key')
+    console.log(err)
+  })
+
 }
