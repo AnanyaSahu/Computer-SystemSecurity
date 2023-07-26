@@ -47,7 +47,7 @@ async function getMsgsForUser() {
                 console.log('decrypted msg',decryptedMSgText)
                 // ele+=" <div class='msg-background' onclick='showMsg("+row+")'>"+  r[2]+"</div> <br>"
                 ele+=" <div class='msg-background'>"+  r[2]+"</div> <br>"
-                ele+= <div>r1</div>
+                ele+= "<div>"+decryptedMSgText+"</div>"
             }
         }
         msgEle.innerHTML = ele  
