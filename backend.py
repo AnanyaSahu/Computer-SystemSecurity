@@ -88,9 +88,13 @@ class backend:
     cursor = d.openDbConnection()
     # e, kty, n
     pubKEtTransformed = publicKey["e"]+ "|" + publicKey["kty"] + "|" + publicKey["n"]
-    query = "update [dbo].[userDetails] set [pubKey] = '"+str(pubKEtTransformed)+"' where [email]= "+str(emailId)+";" 
+    query = "update [dbo].[userDetails] set [pubKey] = '"+str(pubKEtTransformed)+"' where [email]= "+str(emailId)+";"
+    print(query) 
     c = cursor.execute(query)
     c.commit()
+    query = "select * from  [dbo].[userDetails];" 
+    record = cursor.execute(query).fetchall()
+    print(record)
     return {'msgs': 'Logged in successfully, key generated'}
   
 
