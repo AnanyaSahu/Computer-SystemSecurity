@@ -41,12 +41,12 @@ function getMsgsForUser() {
   })
 }
 
-async function showMsg(msg) {
+ function showMsg(msg) {
         console.log(listOfMessages[msg])
         // alert(listOfMessages[msg][1])
         //decrypt message
         const privateKeyData = localStorage.getItem("privateKey");
-        const privateKey = await window.crypto.subtle.importKey(
+        const privateKey =  window.crypto.subtle.importKey(
             "jwk",
             JSON.parse(privateKeyData),
             {
@@ -56,7 +56,7 @@ async function showMsg(msg) {
             true,
             ["decrypt"]
         );
-        const decryptedMSgText = await decryptWithPrivateKey(privateKey, listOfMessages[msg][1])
+        const decryptedMSgText =  decryptWithPrivateKey(privateKey, listOfMessages[msg][1])
         console.log('decrypted msg',decryptedMSgText)
         // alert(decryptedMSgText)
 }
