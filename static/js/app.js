@@ -17,7 +17,7 @@ function getMsgsForUser() {
     // userId = '2'
     var msgEle = document.getElementById("messages");
     ele ='' 
-    fetch(prefix+'/getMsg'+loggedInUSer.email, {
+    fetch(prefix+'/getMsg/'+loggedInUSer.email, {
         method: 'GET',
 
     }).then(response => response.json())
