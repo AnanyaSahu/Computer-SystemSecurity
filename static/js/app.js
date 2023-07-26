@@ -45,9 +45,9 @@ async function getMsgsForUser() {
                 r = data.rows[row]
                 const decryptedMSgText = await decryptWithPrivateKey(privateKey, listOfMessages[row][1])
                 console.log('decrypted msg',decryptedMSgText)
-                // ele+=" <div class='msg-background' onclick='showMsg("+row+")'>"+  r[2]+"</div> <br>"
+                ele+=" <div class='msg-background' onclick='showMsg("+decryptedMSgText+")'>"+  r[2]+"</div> <br>"
                 ele+=" <div class='msg-background'>"+  r[2]+"</div> <br>"
-                ele+= "<div>"+decryptedMSgText+"</div>"
+                // ele+= "<div>"+decryptedMSgText+"</div>"
             }
         }
         msgEle.innerHTML = ele  
@@ -58,7 +58,7 @@ async function getMsgsForUser() {
 }
 
  async function showMsg(msg) {
-        console.log(listOfMessages[msg])
+        // console.log(listOfMessages[msg])
         // alert(listOfMessages[msg][1])
         //decrypt message
         // const privateKeyData = localStorage.getItem("privateKey");
@@ -72,9 +72,9 @@ async function getMsgsForUser() {
         //     true,
         //     ["decrypt"]
         // );
-        const decryptedMSgText = await decryptWithPrivateKey(privateKey, listOfMessages[msg][1])
-        console.log('decrypted msg',decryptedMSgText)
-        alert(decryptedMSgText)
+        // const decryptedMSgText = await decryptWithPrivateKey(privateKey, listOfMessages[msg][1])
+        // console.log('decrypted msg',decryptedMSgText)
+        alert(msg)
 }
 
 function createMsgsForUser() {
