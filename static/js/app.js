@@ -7,7 +7,7 @@ let listOfMessages = []
 function getMsgsForUser(userId) {
     userId = '2'
     var msgEle = document.getElementById("messages");
-    ele =''
+    ele ='' 
     fetch(prefix+'/getMsg/'+userId, {
         method: 'GET',
     }).then(response => response.json())
@@ -20,7 +20,7 @@ function getMsgsForUser(userId) {
             listOfMessages = data.rows
             for (row in data.rows) {
                 r = data.rows[row]
-                ele+=" <div class='cursor-pointer msg-background' onclick='showMsg("+row+")'>"+  r[2]+"</div> <br>"
+                ele+=" <div class='msg-background' onclick='showMsg("+row+")'>"+  r[2]+"</div> <br>"
             }
         }
         msgEle.innerHTML = ele  
@@ -46,15 +46,7 @@ function createMsgsForUser() {
         })
     }).then(response => response.json())
     .then((data) => {
-        // if(len(data.rows) == 0) {
-        //     ele+=" <div class='cursor-pointer'>No New Messages</div>"
-        // } else {
-        //     for (row in data.rows) {
-        //         r = data.rows[row]
-        //         ele+=" <div class='cursor-pointer' onclick='selectArea("+ r[0]+")'>"+ r[0]+","+ r[1]+"</div>"
-        //     }
-        // }
-        // arealist.innerHTML = ele  
+        alert('msg has been sent')
 }).catch( err => {
     alert('unable to create user messages')
     console.log(err)
@@ -93,3 +85,14 @@ function navigate(page) {
 }
 
 
+function getUSerData(response) {
+    fetch('https://graph.facebook.com/' + 
+    response.userID+"?fields=id,name,email&access_token="+ response.accessToken ).then(response => response.json())
+    .then((data) => {
+        console.log('user Data from facebook')
+        console.log(data)
+}).catch( err => {
+    alert('unable to delete user messages')
+    console.log(err)
+  })
+}
