@@ -65,7 +65,7 @@ function base64ToBuffer(base64) {
 }
 
 // Page initialization
-window.onload = async () => {
+// window.onload = async () => {
     // // Generate and display the RSA public key
     // const rsaKeyPair = await generateRSAKeyPair();
     // const publicKey = rsaKeyPair.publicKey;
@@ -80,7 +80,7 @@ window.onload = async () => {
     // // Add event listeners for the buttons
     // document.getElementById("encrypt-button").addEventListener("click", encryptMessage);
     // document.getElementById("decrypt-button").addEventListener("click", decryptMessage);
-};
+// };
 
 // Event listener for the "Encrypt" button
 async function encryptMessage(publicKeyData, message) {

@@ -17,11 +17,9 @@ function getMsgsForUser(userId) {
     // userId = '2'
     var msgEle = document.getElementById("messages");
     ele ='' 
-    fetch(prefix+'/getMsg', {
+    fetch(prefix+'/getMsg'+userId, {
         method: 'GET',
-        body: JSON.stringify({
-            userId:userId
-        })
+
     }).then(response => response.json())
     .then((data) => {
     
@@ -140,16 +138,15 @@ console.log(err)
 }
 
 
-function checkUserAvailabliity(){
+async function checkUserAvailabliity(){
     var messageArea = document.getElementById('message-area');
     var sendBtn = document.getElementById('send-btn');
     var notFound = document.getElementById('userNotFound');  
     // userId = '2'
     var userId =  document.getElementById('recipient').value;
     ele ='' 
-    fetch('/getUser', {
-        method: 'GET',
-        body: JSON.stringify({ userId :userId }),
+    await fetch('/getUser/'+userId, {
+        method: 'GET'
     }).then(response => response.json())
     .then((data) => {
         if(data.rows.length == 0) {
