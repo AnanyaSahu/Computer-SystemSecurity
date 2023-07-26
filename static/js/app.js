@@ -120,12 +120,15 @@ function checkUserAvailabliity(){
     }).then(response => response.json())
     .then((data) => {
         if(data.rows.length == 0) {
+            
+            messageArea.style.display = 'none'
+            sendBtn.style.display = 'none'
             notFound.innerHTML = "<div>User is not available</div>"
             //no user
         } else {
             messageArea.style.display = 'block'
             sendBtn.style.display = 'block'
-
+            notFound.innerHTML = ""
             // email = data[0][0]
             // pubkey = data[0][1]
         //    user is online
