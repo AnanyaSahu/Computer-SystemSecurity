@@ -1,5 +1,5 @@
-const prefix = 'http://127.0.0.1:8080'
-
+// const prefix = 'http://127.0.0.1:8080'
+const prefix = ''
 const prefix1 = "http://127.0.0.1:5500"
 
 let listOfMessages = []
