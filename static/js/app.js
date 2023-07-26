@@ -124,7 +124,7 @@ async function getUSerData(req) {
                 savePublicKey(publicKeyData)
 }).catch( err => {
     alert('unable to login user ')
-    console.log(err)
+    console.log(str(err))
   })
 
 
