@@ -198,12 +198,9 @@ async function sendMsg(){
     console.log(UserDetails.pubKey)
     console.log('message', message)
     encryptMessageText = encryptMessage(UserDetails.pubKey, message)
-    .then(response)
-    .then(
-        (data) => {
-            console.log(data)
-        }
-    )
+    .then(response =>{
+        console.log(response)
+    });
    
 
     await fetch('/createMsg', {
