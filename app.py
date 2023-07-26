@@ -49,6 +49,11 @@ def  setPublicKey(emailId):
 
 
 
+@app.route('/createUser/<emailId>', methods=['POST'])
+def  createMessageForUser(emailId):
+    b = backend()
+    return b.createMessageForUser(emailId)
+
 # This will render the template on cloud
 @app.route('/createMsg')
 def  createMsgPage():

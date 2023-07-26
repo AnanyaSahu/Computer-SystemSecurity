@@ -104,16 +104,27 @@ async function getUSerData(req) {
     loggedInUSer.email = data.email,
     loggedInUSer.name = data.name
 
-        // Generate and display the RSA public key
-        const rsaKeyPair = await generateRSAKeyPair();
-        const publicKey = rsaKeyPair.publicKey;
-        const publicKeyData = await exportPublicKey(publicKey);
-        const privateKey = rsaKeyPair.privateKey;
-        const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
-        localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
-        console.log(publicKeyData)
-        console.log(privateKeyData)
-        savePublicKey(publicKeyData)
+    await  fetch(prefix+'/createUser/' + loggedInUSer.email, {
+        method: 'POST',
+    }).then(response => response.json())
+    .then(async (data) => {
+        alert('user logged in')
+                // Generate and display the RSA public key
+                const rsaKeyPair = await generateRSAKeyPair();
+                const publicKey = rsaKeyPair.publicKey;
+                const publicKeyData = await exportPublicKey(publicKey);
+                const privateKey = rsaKeyPair.privateKey;
+                const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
+                localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
+                console.log(publicKeyData)
+                console.log(privateKeyData)
+                savePublicKey(publicKeyData)
+}).catch( err => {
+    alert('unable to login user ')
+    console.log(err)
+  })
+
+
 }).catch( err => {
     alert('unable get delete user data')
     console.log(err)
