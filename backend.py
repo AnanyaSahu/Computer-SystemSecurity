@@ -92,16 +92,21 @@ class backend:
     print(query) 
     c = cursor.execute(query)
     c.commit()
-    query = "select * from  [dbo].[userDetails];" 
-    record = cursor.execute(query).fetchall()
-    print(record)
-    return {'msgs': 'Logged in successfully, key generated'}
+    # query = "select * from  [dbo].[userDetails];" 
+    # record = cursor.execute(query).fetchall()
+    # print(record)
+    return {'msgs': 'Logged in successfully, key saved'}
   
 
   def createUser(self, params):
     d = databaseConnection()
     cursor = d.openDbConnection()
-    query = "INSERT INTO [dbo].[userDetails] ([email],[pubKey]) VALUES ('" + params['emailId']+"','');" 
-    c = cursor.execute(query)
-    c.commit()
+    query = "select * from  [dbo].[userDetails];"
+    record = cursor.execute(query).fetchall() 
+    if(record.count == 0):
+      query = "INSERT INTO [dbo].[userDetails] ([email],[pubKey]) VALUES ('" + params['emailId']+"','');" 
+      c = cursor.execute(query)
+      c.commit()
+    
+
     return {'msgs': 'Logged in successfully, key generated'}

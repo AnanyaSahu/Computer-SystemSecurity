@@ -14,19 +14,18 @@ app = Flask(__name__)
 @app.route('/getMsg', methods=['GET'])
 def  getMessagesForUser():
     b = backend()
-    return b.getMessagesForUser(request.get_json('userId'))
+    return b.getMessagesForUser(request.get_json('userId')['userId'])
 
 @app.route('/createMsg/<userId>', methods=['POST'])
 def  createMessageForUser(userId):
-    # request.json
     b = backend()
-    return b.createMessageForUser(request.get_json('message'), request.get_json('recieverId'),request.get_json('sender'))
+    return b.createMessageForUser(request.get_json('message')['message'], request.get_json('recieverId')['recieverId'],request.get_json('sender')['sender'])
 
 
 @app.route('/getUser', methods=['GET'])
 def  getUser():
     b = backend()
-    return b.checkUserAvailabliity(request.get_json('userId'))
+    return b.checkUserAvailabliity(request.get_json('userId')['userId'])
 
 @app.route('/deleteMsg/<msgId>', methods=['PUT'])
 def  deleteUserMessages(msgId):
@@ -41,7 +40,7 @@ def  getMessage(msgId):
 @app.route('/clearKey', methods=['PUT'])
 def  removeUserPublicKey(emailId):
     b = backend()
-    return b.deleteUserMessages(request.get_json('emailID'))
+    return b.deleteUserMessages(request.get_json('emailID')['emailID'])
 
 @app.route('/generateKey', methods=['PUT'])
 def  setPublicKey():
@@ -53,7 +52,7 @@ def  setPublicKey():
 @app.route('/createUser', methods=['POST'])
 def  createUser():
     b = backend()
-    return b.createUser(request.get_json('emailId'))
+    return b.createUser(request.get_json('emailId')['emailId'])
 
 # This will render the template on cloud
 @app.route('/createMsg')
