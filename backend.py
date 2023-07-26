@@ -83,10 +83,11 @@ class backend:
   
 
   def setPublicKey (self, emailId, publicKey):
+    print(publicKey)
     d = databaseConnection()
     cursor = d.openDbConnection()
     # e, kty, n
-    pubKEtTransformed = publicKey['e']+ "|" + publicKey['kty'] + "|" + publicKey['n']
+    pubKEtTransformed = publicKey["e"]+ "|" + publicKey["kty"] + "|" + publicKey["n"]
     query = "update [dbo].[userDetails] set [pubKey] = '"+str(pubKEtTransformed)+"' where [email]= "+str(emailId)+";" 
     c = cursor.execute(query)
     c.commit()
