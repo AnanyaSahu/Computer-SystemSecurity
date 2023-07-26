@@ -39,17 +39,42 @@
           });
 
         };
-
+        function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+          console.log('statusChangeCallback');
+          console.log(response);                   // The current login status of the person.
+          if (response.status === 'connected') { 
+            getUSerData(response.authResponse)  // Logged into your webpage and Facebook.
+            testAPI();  
+          } else {                                 // Not logged into your webpage or we are unable to tell.
+            document.getElementById('status').innerHTML = 'Please log ' +
+              'into this webpage.';
+              // window.location.assign("/templates/userMsgs.html");  // remove line later
+          }
+        }
         function logout() {
             console.log('in logout method')
-            FB.logout(function(response) {
+            FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+                if (response.status === 'connected') { 
+            
+                    FB.logout(function(response) {
               // user is now logged out
               
               localStorage.clear();
               sessionStorage.clear();
               console.log('in  FB.logout logout method')
             });
+          } else {                                 // Not logged into your webpage or we are unable to tell.
+            // document.getElementById('status').innerHTML = 'Please log ' +
+            //   'into this webpage.';
+            //   // window.location.assign("/templates/userMsgs.html");  // remove line later
+          }
+           
+            // Returns the login status.
+          });
+           
         }
+
+
         async function fetchMessages() {
             try {
                 const response = getMsgsForUser('');
