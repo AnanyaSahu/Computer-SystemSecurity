@@ -22,10 +22,10 @@ def  createMessageForUser(userId):
     return b.createMessageForUser(userId, request.json)
 
 
-@app.route('/getUser/<userId>', methods=['GET'])
+@app.route('/getUser', methods=['GET'])
 def  getUser(userId):
     b = backend()
-    return b.checkUserAvailabliity(userId)
+    return b.checkUserAvailabliity(request.json['emailId'])
 
 @app.route('/deleteMsg/<msgId>', methods=['PUT'])
 def  deleteUserMessages(msgId):

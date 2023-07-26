@@ -104,8 +104,11 @@ async function getUSerData(req) {
     loggedInUSer.email = data.email,
     loggedInUSer.name = data.name
 
-    await  fetch(prefix+'/createUser/' + loggedInUSer.email, {
+    await  fetch(prefix+'/createUser/', {
         method: 'POST',
+        body: JSON.stringify({
+            emailId: loggedInUSer.email
+        })
     }).then(response => response.json())
     .then(async (data) => {
         alert('user logged in')
@@ -139,7 +142,7 @@ function checkUserAvailabliity(){
     // userId = '2'
     var userId =  document.getElementById('recipient').value;
     ele ='' 
-    fetch('/getUser/'+userId, {
+    fetch('/getUser/', {
         method: 'GET',
     }).then(response => response.json())
     .then((data) => {
