@@ -105,13 +105,13 @@ class backend:
     return {'msgs': 'Logged in successfully, key saved'}
   
 
-  def createUser(self, params):
+  def createUser(self, email):
     d = databaseConnection()
     cursor = d.openDbConnection()
-    query = "select * from  [dbo].[userDetails];"
+    query = "select * from  [dbo].[userDetails] where [email] = '"+ email+ "';"
     record = cursor.execute(query).fetchall() 
-    if(record.count == 0):
-      query = "INSERT INTO [dbo].[userDetails] ([email],[pubKey]) VALUES ('" + params['emailId']+"','');" 
+    if(len(record) == 0):
+      query = "INSERT INTO [dbo].[userDetails] ([email],[pubKey]) VALUES ('" + email +"','');" 
       c = cursor.execute(query)
       c.commit()
       print('new user created')
