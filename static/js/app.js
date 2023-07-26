@@ -190,7 +190,7 @@ async function checkUserAvailabliity(){
 
 function sendMsg(){
     const messageForm = document.getElementById('messageForm');
-    e.preventDefault();
+    // e.preventDefault();
     const sender = '1'; // Replace this with the actual sender's username.
     const recipient = document.getElementById('recipient').value;
     const message = document.getElementById('message').value;
