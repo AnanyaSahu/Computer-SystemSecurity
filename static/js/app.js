@@ -232,7 +232,7 @@ function savePublicKey(publicKey){
         method: 'PUT',
         body: JSON.stringify({
             emailID: loggedInUSer.email,
-            publicKey:JSON.stringify(publicKey) 
+            publicKey:publicKey
         })
     }).then(response => response.json())
     .then((data) => {
