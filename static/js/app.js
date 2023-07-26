@@ -198,7 +198,7 @@ async function sendMsg(){
     console.log(UserDetails.pubKey)
     console.log('message', message)
     encryptMessageText = encryptMessage(UserDetails.pubKey, message)
-    .then(response => response.json())
+    .then(response)
     .then(
         (data) => {
             console.log(data)
