@@ -104,34 +104,36 @@ async function getUSerData(req) {
     loggedInUSer.email = data.email,
     loggedInUSer.name = data.name
 
-     fetch(prefix+'/createUser', {
-        method: 'POST',
-        body: JSON.stringify({
-            emailId: loggedInUSer.email
-        })
-    }).then(response => response.json())
-    .then(async (data) => {
-        alert('user logged in')
-                // Generate and display the RSA public key
-                const rsaKeyPair = await generateRSAKeyPair();
-                const publicKey = rsaKeyPair.publicKey;
-                const publicKeyData = await exportPublicKey(publicKey);
-                const privateKey = rsaKeyPair.privateKey;
-                const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
-                localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
-                console.log(publicKeyData)
-                console.log(privateKeyData)
-                savePublicKey(publicKeyData)
-}).catch( err => {
-    alert('unable to login user ')
-    console.log(err)
-  })
+
 
 
 }).catch( err => {
     alert('unable get user data from facebook')
     console.log(err)
   })
+
+  await fetch(prefix+'/createUser', {
+    method: 'POST',
+    body: JSON.stringify({
+        emailId: loggedInUSer.email
+    })
+}).then(response => response.json())
+.then(async (data) => {
+    alert('user logged in')
+            // Generate and display the RSA public key
+            const rsaKeyPair = await generateRSAKeyPair();
+            const publicKey = rsaKeyPair.publicKey;
+            const publicKeyData = await exportPublicKey(publicKey);
+            const privateKey = rsaKeyPair.privateKey;
+            const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
+            localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
+            console.log(publicKeyData)
+            console.log(privateKeyData)
+            savePublicKey(publicKeyData)
+}).catch( err => {
+alert('unable to login user ')
+console.log(err)
+})
 }
 
 
