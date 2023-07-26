@@ -119,7 +119,7 @@ async function getUSerData(req) {
   await fetch(prefix+'/createUser', {
     method: 'POST',
     body: JSON.stringify({
-        emailId: sessionStorage.setItem('loggedInUSername',data.name)
+        emailId: sessionStorage.getItem('loggedInUSername')
     })
 }).then(response => response.json())
 .then(async (data) => {
