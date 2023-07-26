@@ -52,7 +52,7 @@ def  setPublicKey(emailId):
 @app.route('/createUser', methods=['POST'])
 def  createUser():
     b = backend()
-    return b.createUser(request.json['email'])
+    return b.createUser(request.json['emailId'])
 
 # This will render the template on cloud
 @app.route('/createMsg')
