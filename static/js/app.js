@@ -169,6 +169,7 @@ async function checkUserAvailabliity(){
                 n:data.rows[0][1].split("|")[2]
             }
             UserDetails.pubKey = pubKeyobj
+            console.log(UserDetails.pubKey)
 
             if(   UserDetails.pubKey  == '') {
                 alert('user offline')

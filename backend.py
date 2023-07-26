@@ -34,6 +34,7 @@ class backend:
     cursor = d.openDbConnection()
     query = "insert into [dbo].[notifications]  values (?,?,?,?)" 
     # encryptedMsg = self.fernetObj.encrypt(params['message'])
+    print(message, recieverId, senderId)
     c= cursor.execute(query, str( senderId),  str(recieverId), message , 0)
     c.commit()
     # record = c.fetchall()
@@ -66,11 +67,11 @@ class backend:
     cursor = d.openDbConnection()
     query = "select * from  [dbo].[userDetails];" 
     record = cursor.execute(query).fetchall()
-    print('all records')
-    print(record)
+    # print('all records')
+    # print(record)
     query = "select [email],[pubKey] from [dbo].[userDetails] where [email] = '"+str(userId)+"';" 
-    print(query)
-    print(' records for user id')
+    # print(query)
+    # print(' records for user id')
     record = cursor.execute(query).fetchall()
     print(record)
     r= [tuple(row) for row in record]
