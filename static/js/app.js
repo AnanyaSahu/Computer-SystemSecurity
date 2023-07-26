@@ -173,7 +173,7 @@ async function checkUserAvailabliity(){
                 n:data.rows[0][1].split("|")[2]
             }
             UserDetails.pubKey = pubKeyobj
-            sessionStorage.setItem('UserDetailspubKey',pubKeyobj)
+            sessionStorage.setItem('UserDetailspubKey',JSON.stringify( pubKeyobj))
           
 
             if(  sessionStorage.getItem('UserDetailspubKey')  == '') {
@@ -197,7 +197,7 @@ async function checkUserAvailabliity(){
 async function sendMsg(){
     const publicKey = await window.crypto.subtle.importKey(
         "jwk",
-        sessionStorage.getItem('UserDetailspubKey'),
+        JSON.parse(sessionStorage.getItem('UserDetailspubKey')),
         {
             name: "RSA-OAEP",
             hash: { name: "SHA-256" },
