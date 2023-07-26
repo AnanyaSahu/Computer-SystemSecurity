@@ -37,6 +37,9 @@ async function encryptWithPublicKey(publicKey, data) {
 
 // Decrypt the data with the private key using RSA-OAEP
 async function decryptWithPrivateKey(privateKey, encryptedData) {
+    console.log('in crypto.js')
+    console.log('in crypto.js', privateKey)
+    console.log('in crypto.js', encryptedData)
     const encodedEncryptedData = base64ToBuffer(encryptedData);
     const decryptedData = await window.crypto.subtle.decrypt(
         {
@@ -45,7 +48,7 @@ async function decryptWithPrivateKey(privateKey, encryptedData) {
         privateKey,
         encodedEncryptedData
     );
-    console.log('in crypto.js')
+   
     console.log( new TextDecoder().decode(decryptedData))
     return new TextDecoder().decode(decryptedData);
 }
