@@ -164,7 +164,7 @@ async function checkUserAvailabliity(){
             UserDetails.emailId = data.rows[0][0]
             UserDetails.pubKey = data.rows[0][1]
 
-            if(   UserDetails.pubKey  != '') {
+            if(   UserDetails.pubKey  == '') {
                 alert('user offline')
             } else {
                 messageArea.style.display = 'block'
