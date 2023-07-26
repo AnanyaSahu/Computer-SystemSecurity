@@ -104,7 +104,7 @@ async function getUSerData(req) {
     loggedInUSer.email = data.email,
     loggedInUSer.name = data.name
 
-    await  fetch(prefix+'/createUser/', {
+    await  fetch(prefix+'/createUser', {
         method: 'POST',
         body: JSON.stringify({
             emailId: loggedInUSer.email
