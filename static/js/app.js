@@ -130,7 +130,7 @@ async function getUSerData(req) {
             const privateKey = rsaKeyPair.privateKey;
             const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
             localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
-            // console.log(publicKeyData)
+            console.log(publicKeyData)
             // console.log(privateKeyData)
             savePublicKey(publicKeyData)
 }).catch( err => {
@@ -232,7 +232,7 @@ function savePublicKey(publicKey){
         method: 'PUT',
         body: JSON.stringify({
             emailID: UserDetails.emailId,
-            publicKey:publicKey 
+            publicKey:JSON.stringify(publicKey) 
         })
     }).then(response => response.json())
     .then((data) => {
