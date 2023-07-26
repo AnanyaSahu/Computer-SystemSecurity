@@ -18,7 +18,7 @@ class backend:
     list = []
     d = databaseConnection()
     cursor = d.openDbConnection()
-    query = "select notificationId,messageText,senderId from [dbo].[notifications] where [isOpened] = 0 and [recieverId] = "+str(userId)+";" 
+    query = "select notificationId,messageText,senderId from [dbo].[notifications] where [isOpened] = 0 and [recieverId] = '"+str(userId)+"';" 
     record = cursor.execute(query).fetchall()
     r= [tuple(row) for row in record]
     # for tup in r:
@@ -64,7 +64,7 @@ class backend:
     list = []
     d = databaseConnection()
     cursor = d.openDbConnection()
-    query = "select [email],[pubKey] from [dbo].[userDetails] where [email] = "+str(userId)+";" 
+    query = "select [email],[pubKey] from [dbo].[userDetails] where [email] = '"+str(userId)+"';" 
     record = cursor.execute(query).fetchall()
     r= [tuple(row) for row in record]
     # for tup in r:
@@ -76,7 +76,7 @@ class backend:
   def clearPublicKey (self, emailId):
     d = databaseConnection()
     cursor = d.openDbConnection()
-    query = "update [dbo].[userDetails] set [pubKey] = '' where [email]= "+str(emailId)+";" 
+    query = "update [dbo].[userDetails] set [pubKey] = '' where [email]= '"+str(emailId)+"';" 
     c = cursor.execute(query)
     c.commit()
     return {'msgs': 'Logged out successfully'}
