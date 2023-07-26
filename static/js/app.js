@@ -58,7 +58,7 @@ async function showMsg(msg) {
         );
         const decryptedMSgText = await decryptWithPrivateKey(privateKey, listOfMessages[msg][1])
         console.log('decrypted msg',decryptedMSgText)
-        alert(decryptedMSgText)
+        // alert(decryptedMSgText)
 }
 
 function createMsgsForUser() {
@@ -222,7 +222,7 @@ async function sendMsg(){
     );
     const messageForm = document.getElementById('messageForm');
     // e.preventDefault();
-    const sender = '1'; // Replace this with the actual sender's username.
+    const sender = sessionStorage.getItem('loggedInUSeremail'); // Replace this with the actual sender's username.
     const recipient = document.getElementById('recipient').value;
     const message = document.getElementById('message').value;
     console.log(sessionStorage.getItem('UserDetailspubKey') )
