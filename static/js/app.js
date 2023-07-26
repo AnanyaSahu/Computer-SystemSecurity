@@ -17,8 +17,8 @@ function getMsgsForUser() {
     // userId = '2'
     var msgEle = document.getElementById("messages");
     ele ='' 
-    console.log('loggedInUSer', loggedInUSer)
-    fetch(prefix+'/getMsg/'+loggedInUSer.email, {
+    console.log('loggedInUSer', sessionStorage.getItem('loggedInUSeremail'))
+    fetch(prefix+'/getMsg/'+sessionStorage.getItem('loggedInUSeremail'), {
         method: 'GET',
 
     }).then(response => response.json())
@@ -103,8 +103,10 @@ async function getUSerData(req) {
     .then(async (data) => {
         console.log('user Data from facebook')
         console.log(data)
-    loggedInUSer.email = data.email,
-    loggedInUSer.name = data.name
+        sessionStorage.setItem('loggedInUSeremail',data.email)
+        sessionStorage.setItem('loggedInUSername',data.name)
+    // loggedInUSer.email = data.email,
+    // loggedInUSer.name = data.name
 
 
 
@@ -117,7 +119,7 @@ async function getUSerData(req) {
   await fetch(prefix+'/createUser', {
     method: 'POST',
     body: JSON.stringify({
-        emailId: loggedInUSer.email
+        emailId: sessionStorage.setItem('loggedInUSername',data.name)
     })
 }).then(response => response.json())
 .then(async (data) => {
@@ -163,6 +165,7 @@ async function checkUserAvailabliity(){
             messageArea.style.display = 'none'
             sendBtn.style.display = 'none'
             UserDetails.emailId = data.rows[0][0]
+            sessionStorage.setItem('UserDetailsemailId',data.rows[0][0])
             data.rows[0][1].split("|")
             pubKeyobj = {
                 e:data.rows[0][1].split("|")[0],
@@ -170,9 +173,10 @@ async function checkUserAvailabliity(){
                 n:data.rows[0][1].split("|")[2]
             }
             UserDetails.pubKey = pubKeyobj
+            sessionStorage.setItem('UserDetailspubKey',pubKeyobj)
           
 
-            if(   UserDetails.pubKey  == '') {
+            if(  sessionStorage.getItem('UserDetailspubKey')  == '') {
                 alert('user offline')
             } else {
                 messageArea.style.display = 'block'
@@ -193,7 +197,7 @@ async function checkUserAvailabliity(){
 async function sendMsg(){
     const publicKey = await window.crypto.subtle.importKey(
         "jwk",
-        UserDetails.pubKey,
+        sessionStorage.getItem('UserDetailspubKey'),
         {
             name: "RSA-OAEP",
             hash: { name: "SHA-256" },
@@ -206,7 +210,7 @@ async function sendMsg(){
     const sender = '1'; // Replace this with the actual sender's username.
     const recipient = document.getElementById('recipient').value;
     const message = document.getElementById('message').value;
-    console.log(UserDetails.pubKey)
+    console.log(sessionStorage.getItem('UserDetailspubKey') )
     console.log('message', message)
     // encryptMessageText = encryptMessage(UserDetails.pubKey, message)
     const encryptMessageText = await encryptWithPublicKey(publicKey, message);
@@ -237,10 +241,10 @@ async function sendMsg(){
 
 
 function clearPublicKey(res){
-        fetch(prefix+'/clearKey/'+UserDetails.emailId, {
+        fetch(prefix+'/clearKey/'+sessionStorage.getItem('UserDetailsemailId') , {
             method: 'PUT',
             body: JSON.stringify({
-                emailID: UserDetails.emailId,
+                emailID: sessionStorage.getItem('UserDetailsemailId'),
             })
         }).then(response => response.json())
         .then((data) => {
@@ -258,7 +262,7 @@ function savePublicKey(publicKey){
     fetch(prefix+'/generateKey', {
         method: 'PUT',
         body: JSON.stringify({
-            emailID: loggedInUSer.email,
+            emailID: sessionStorage.getItem('loggedInUSeremail'),
             publicKey:JSON.parse(publicKey)
         })
     }).then(response => response.json())
