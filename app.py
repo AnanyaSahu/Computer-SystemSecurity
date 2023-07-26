@@ -40,7 +40,7 @@ def  getMessage(msgId):
 @app.route('/clearKey', methods=['PUT'])
 def  removeUserPublicKey():
     b = backend()
-    return b.deleteUserMessages(request.get_json('emailID')['emailID'])
+    return b.clearPublicKey(request.get_json('emailID')['emailID'])
 
 @app.route('/generateKey', methods=['PUT'])
 def  setPublicKey():
