@@ -130,8 +130,8 @@ async function getUSerData(req) {
             const privateKey = rsaKeyPair.privateKey;
             const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
             localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
-            console.log(publicKeyData)
-            console.log(privateKeyData)
+            // console.log(publicKeyData)
+            // console.log(privateKeyData)
             savePublicKey(publicKeyData)
 }).catch( err => {
 alert('unable to login user ')
