@@ -96,11 +96,11 @@ function navigate(page) {
 
 async function getUSerData(req) {
     console.log('getUSerData')
-    // await fetch('https://graph.facebook.com/' + 
-    // req.userID+"?fields=id,name,email&access_token="+ req.accessToken ).then(response => response.json())
-    // .then(async (data) => {
-    //     console.log('user Data from facebook')
-    //     console.log(data)
+    await fetch('https://graph.facebook.com/' + 
+    req.userID+"?fields=id,name,email&access_token="+ req.accessToken ).then(response => response.json())
+    .then(async (data) => {
+        console.log('user Data from facebook')
+        console.log(data)
     loggedInUSer.email = data.email,
     loggedInUSer.name = data.name
 
@@ -111,24 +111,13 @@ async function getUSerData(req) {
         const privateKey = rsaKeyPair.privateKey;
         const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
         localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
+        console.log(publicKeyData)
+        console.log(privateKeyData)
         savePublicKey(publicKeyData)
-
-
-//         email
-// : 
-// "ananya_sahu@hotmail.com"
-// id
-// : 
-// "6686390104724805"
-// name
-// : 
-// "Ananya Sahu"
-
-
-// }).catch( err => {
-//     alert('unable to delete user messages')
-//     console.log(err)
-//   })
+}).catch( err => {
+    alert('unable get delete user data')
+    console.log(err)
+  })
 }
 
 
