@@ -61,7 +61,7 @@
           FB.api('/me', function(response) {
             console.log('Successful login for: ' + response.name);
 
-            getUSerData(response)
+            getUSerData(response.authResponse)
 
           
             document.getElementById('status').innerHTML =
