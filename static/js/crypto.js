@@ -45,6 +45,8 @@ async function decryptWithPrivateKey(privateKey, encryptedData) {
         privateKey,
         encodedEncryptedData
     );
+    console.log('in crypto.js')
+    console.log( new TextDecoder().decode(decryptedData))
     return new TextDecoder().decode(decryptedData);
 }
 
