@@ -142,7 +142,7 @@ function checkUserAvailabliity(){
     // userId = '2'
     var userId =  document.getElementById('recipient').value;
     ele ='' 
-    fetch('/getUser/', {
+    fetch('/getUser', {
         method: 'GET',
     }).then(response => response.json())
     .then((data) => {

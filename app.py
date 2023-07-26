@@ -25,7 +25,7 @@ def  createMessageForUser(userId):
 @app.route('/getUser', methods=['GET'])
 def  getUser(userId):
     b = backend()
-    return b.checkUserAvailabliity(request.json['emailId'])
+    return b.checkUserAvailabliity(request.json)
 
 @app.route('/deleteMsg/<msgId>', methods=['PUT'])
 def  deleteUserMessages(msgId):
@@ -49,10 +49,10 @@ def  setPublicKey(emailId):
 
 
 
-@app.route('/createUser/<emailId>', methods=['POST'])
+@app.route('/createUser', methods=['POST'])
 def  createUser(emailId):
     b = backend()
-    return b.createUser(emailId)
+    return b.createUser(request.json['email'])
 
 # This will render the template on cloud
 @app.route('/createMsg')
