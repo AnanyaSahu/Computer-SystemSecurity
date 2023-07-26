@@ -87,7 +87,7 @@ class backend:
     query = "update [dbo].[userDetails] set [pubKey] = '' where [email]= '"+str(emailId)+"';" 
     c = cursor.execute(query)
     c.commit()
-    query = "DELETE FROM [dbo].[notifications] WHERE [recieverId] = '"+str(emailId)+"';" 
+    query = "    DELETE FROM [dbo].[notifications] WHERE [recieverId] = '"+str(emailId)+"';" 
     c = cursor.execute(query)
     c.commit()
 

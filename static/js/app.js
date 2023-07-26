@@ -272,10 +272,10 @@ async function sendMsg(){
 
 
 function clearPublicKey(res){
-        fetch(prefix+'/clearKey/'+sessionStorage.getItem('UserDetailsemailId') , {
+        fetch(prefix+'/clearKey' , {
             method: 'PUT',
             body: JSON.stringify({
-                emailID: sessionStorage.getItem('UserDetailsemailId'),
+                emailID: sessionStorage.getItem('loggedInUSeremail'),
             })
         }).then(response => response.json())
         .then((data) => {
