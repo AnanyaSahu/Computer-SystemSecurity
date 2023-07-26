@@ -91,6 +91,16 @@ function getUSerData(req) {
     .then((data) => {
         console.log('user Data from facebook')
         console.log(data)
+
+//         email
+// : 
+// "ananya_sahu@hotmail.com"
+// id
+// : 
+// "6686390104724805"
+// name
+// : 
+// "Ananya Sahu"
 }).catch( err => {
     alert('unable to delete user messages')
     console.log(err)

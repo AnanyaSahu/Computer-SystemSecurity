@@ -20,12 +20,20 @@
 <body>
     <div class="message-box">
         <h2>Welcome, YourUsername!</h2>
+        <button onclick="javascript:logout();">Logout from Facebook</button>
         <div><button onclick="navigate('createMsg')">+</button></div>
         <br>
         <div id="messages"></div>
     </div>
 
     <script>
+        function logout() {
+            FB.logout(function(response) {
+              // user is now logged out
+              localStorage.clear();
+              sessionStorage.clear()
+            });
+        }
         async function fetchMessages() {
             try {
                 const response = getMsgsForUser('');
