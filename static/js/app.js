@@ -161,8 +161,8 @@ async function checkUserAvailabliity(){
         else {
             messageArea.style.display = 'none'
             sendBtn.style.display = 'none'
-            UserDetails.emailId = data[0][0]
-            UserDetails.pubKey = data[0][1]
+            UserDetails.emailId = data.rows[0][0]
+            UserDetails.pubKey = data.rows[0][1]
 
             if(   UserDetails.pubKey  != '') {
                 alert('user offline')
