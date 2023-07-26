@@ -13,8 +13,19 @@ let loggedInUSer = {
     name: ''
 }
 
-function getMsgsForUser() {
+async function getMsgsForUser() {
     // userId = '2'
+    const privateKey = await window.crypto.subtle.importKey(
+        "jwk",
+        JSON.parse(localStorage.getItem("privateKey")),
+        {
+            name: "RSA-OAEP",
+            hash: { name: "SHA-256" },
+        },
+        true,
+        ["decrypt"]
+    );
+   
     var msgEle = document.getElementById("messages");
     ele ='' 
     console.log('loggedInUSer', sessionStorage.getItem('loggedInUSeremail'))
@@ -22,16 +33,21 @@ function getMsgsForUser() {
         method: 'GET',
 
     }).then(response => response.json())
-    .then((data) => {
+    .then(async (data) => {
     
         if(data.rows.length == 0) {
             
             ele+=" <div class='cursor-pointer'>No New Messages</div>"
         } else {
             listOfMessages = data.rows
+            
             for (row in data.rows) {
                 r = data.rows[row]
-                ele+=" <div class='msg-background' onclick='showMsg("+row+")'>"+  r[2]+"</div> <br>"
+                const decryptedMSgText = await decryptWithPrivateKey(privateKey, listOfMessages[row][1])
+                console.log('decrypted msg',decryptedMSgText)
+                // ele+=" <div class='msg-background' onclick='showMsg("+row+")'>"+  r[2]+"</div> <br>"
+                ele+=" <div class='msg-background'>"+  r[2]+"</div> <br>"
+                ele+= <div>r1</div>
             }
         }
         msgEle.innerHTML = ele  
@@ -41,24 +57,24 @@ function getMsgsForUser() {
   })
 }
 
- function showMsg(msg) {
+ async function showMsg(msg) {
         console.log(listOfMessages[msg])
         // alert(listOfMessages[msg][1])
         //decrypt message
         // const privateKeyData = localStorage.getItem("privateKey");
-        const privateKey =  window.crypto.subtle.importKey(
-            "jwk",
-            JSON.parse(localStorage.getItem("privateKey")),
-            {
-                name: "RSA-OAEP",
-                hash: { name: "SHA-256" },
-            },
-            true,
-            ["decrypt"]
-        );
-        const decryptedMSgText =  decryptWithPrivateKey(privateKey, listOfMessages[msg][1])
+        // const privateKey = await window.crypto.subtle.importKey(
+        //     "jwk",
+        //     JSON.parse(localStorage.getItem("privateKey")),
+        //     {
+        //         name: "RSA-OAEP",
+        //         hash: { name: "SHA-256" },
+        //     },
+        //     true,
+        //     ["decrypt"]
+        // );
+        const decryptedMSgText = await decryptWithPrivateKey(privateKey, listOfMessages[msg][1])
         console.log('decrypted msg',decryptedMSgText)
-        // alert(decryptedMSgText)
+        alert(decryptedMSgText)
 }
 
 function createMsgsForUser() {
