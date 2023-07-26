@@ -45,10 +45,10 @@ function getMsgsForUser() {
         console.log(listOfMessages[msg])
         // alert(listOfMessages[msg][1])
         //decrypt message
-        const privateKeyData = localStorage.getItem("privateKey");
+        // const privateKeyData = localStorage.getItem("privateKey");
         const privateKey =  window.crypto.subtle.importKey(
             "jwk",
-            JSON.parse(privateKeyData),
+            JSON.parse(localStorage.getItem("privateKey")),
             {
                 name: "RSA-OAEP",
                 hash: { name: "SHA-256" },
