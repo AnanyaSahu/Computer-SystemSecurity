@@ -64,6 +64,9 @@ class backend:
     list = []
     d = databaseConnection()
     cursor = d.openDbConnection()
+    query = "select * from  [dbo].[userDetails];" 
+    record = cursor.execute(query).fetchall()
+    print(record)
     query = "select [email],[pubKey] from [dbo].[userDetails] where [email] = '"+str(userId)+"';" 
     record = cursor.execute(query).fetchall()
     r= [tuple(row) for row in record]
