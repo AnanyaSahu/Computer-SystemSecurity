@@ -149,6 +149,7 @@ async function checkUserAvailabliity(){
         method: 'GET'
     }).then(response => response.json())
     .then((data) => {
+        console.log(data.rows)
         if(data.rows.length == 0) {
             
             messageArea.style.display = 'none'

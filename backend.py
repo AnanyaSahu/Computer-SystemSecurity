@@ -89,7 +89,7 @@ class backend:
     # e, kty, n
     pubKEtTransformed = publicKey["e"]+ "|" + publicKey["kty"] + "|" + publicKey["n"]
     query = "update [dbo].[userDetails] set [pubKey] = '"+str(pubKEtTransformed)+"' where [email]= '"+str(emailId)+"';"
-    print(query) 
+    # print(query) 
     c = cursor.execute(query)
     c.commit()
     # query = "select * from  [dbo].[userDetails];" 
@@ -107,6 +107,8 @@ class backend:
       query = "INSERT INTO [dbo].[userDetails] ([email],[pubKey]) VALUES ('" + params['emailId']+"','');" 
       c = cursor.execute(query)
       c.commit()
+      print('new user created')
+    print('user present in db')
     
 
     return {'msgs': 'Logged in successfully, key generated'}
