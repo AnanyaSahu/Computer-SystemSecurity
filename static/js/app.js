@@ -190,6 +190,16 @@ async function checkUserAvailabliity(){
 
 
 async function sendMsg(){
+    const publicKey = await window.crypto.subtle.importKey(
+        "jwk",
+        publicKeyData,
+        {
+            name: "RSA-OAEP",
+            hash: { name: "SHA-256" },
+        },
+        true,
+        ["encrypt"]
+    );
     const messageForm = document.getElementById('messageForm');
     // e.preventDefault();
     const sender = '1'; // Replace this with the actual sender's username.
@@ -197,10 +207,12 @@ async function sendMsg(){
     const message = document.getElementById('message').value;
     console.log(UserDetails.pubKey)
     console.log('message', message)
-    encryptMessageText = encryptMessage(UserDetails.pubKey, message)
-    .then(response =>{
-        console.log(response)
-    });
+    // encryptMessageText = encryptMessage(UserDetails.pubKey, message)
+    const encryptMessageText = await encryptWithPublicKey(UserDetails.pubKey, message);
+    // .then(response =>{
+    //     console.log(response)
+    // });
+    console.log(encryptMessageText)
    
 
     await fetch('/createMsg', {
