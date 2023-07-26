@@ -35,7 +35,7 @@ class backend:
     query = "insert into [dbo].[notifications]  values (?,?,?,?)" 
     # encryptedMsg = self.fernetObj.encrypt(params['message'])
     print(message, recieverId, senderId)
-    c= cursor.execute(query, str( senderId),  str(recieverId), message , 0)
+    c= cursor.execute(query, str( senderId),  str(recieverId), str(message) , 0)
     c.commit()
     # record = c.fetchall()
     # r= [tuple(row) for row in record]

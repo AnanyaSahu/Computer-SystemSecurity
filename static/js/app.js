@@ -149,7 +149,7 @@ async function checkUserAvailabliity(){
         method: 'GET'
     }).then(response => response.json())
     .then((data) => {
-        console.log(data)
+        // console.log(data)
         if(data.rows.length == 0) {
             
             messageArea.style.display = 'none'
@@ -169,7 +169,7 @@ async function checkUserAvailabliity(){
                 n:data.rows[0][1].split("|")[2]
             }
             UserDetails.pubKey = pubKeyobj
-            console.log(UserDetails.pubKey)
+          
 
             if(   UserDetails.pubKey  == '') {
                 alert('user offline')
@@ -189,28 +189,34 @@ async function checkUserAvailabliity(){
 }
 
 
-function sendMsg(){
+async function sendMsg(){
     const messageForm = document.getElementById('messageForm');
     // e.preventDefault();
     const sender = '1'; // Replace this with the actual sender's username.
     const recipient = document.getElementById('recipient').value;
     const message = document.getElementById('message').value;
-    encryptMessage = encryptMessage(UserDetails.pubKey, message)
-    console.log(encryptMessage)
+    console.log(UserDetails.pubKey)
+    console.log('message', message)
+    encryptMessageText = encryptMessage(UserDetails.pubKey, message)
+    console.log(encryptMessageText)
 
-    const response =  fetch('/createMsg', {
+    await fetch('/createMsg', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message:encryptMessage , recieverId:recipient, sender:sender }),
-    });
-
-    if (response.ok) {
+        body: JSON.stringify({ message:encryptMessageText , recieverId:recipient, sender:sender }),
+    }).then(response => response.json())
+    .then((data) => {
         alert('Message sent successfully!');
-    } else {
-        alert('There is no user with this username, try a valid username please.');
-    }
+}).catch( err => {
+    alert('user not available')
+    console.log(err)
+  })
+
+    // if (response.ok) {
+        
+    //     alert('Message sent successfully!');
+    // } else {
+    //     alert('There is no user with this username, try a valid username please.');
+    // }
 }
 
 
