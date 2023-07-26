@@ -45,9 +45,9 @@ async function getMsgsForUser() {
                 r = data.rows[row]
                 const decryptedMSgText = await decryptWithPrivateKey(privateKey, listOfMessages[row][1])
                 console.log('decrypted msg',decryptedMSgText)
-                ele+=" <div class='msg-background' onclick='showMsg("+decryptedMSgText+")'>"+  r[2]+"</div> <br>"
+                // ele+=" <div class='msg-background' onclick='showMsg('"+decryptedMSgText+"')'>"+  r[2]+"</div> <br>"
                 ele+=" <div class='msg-background'>"+  r[2]+"</div> <br>"
-                // ele+= "<div>"+decryptedMSgText+"</div>"
+                ele+= "<div>"+decryptedMSgText+"</div>"
             }
         }
         msgEle.innerHTML = ele  
