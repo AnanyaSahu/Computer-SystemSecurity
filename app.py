@@ -51,6 +51,8 @@ def  setPublicKey(emailId):
 
 @app.route('/createUser', methods=['POST'])
 def  createUser():
+    print('in create user python')
+    print(request.json)
     b = backend()
     return b.createUser(request.json)
 
