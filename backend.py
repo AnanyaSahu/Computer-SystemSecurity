@@ -83,7 +83,7 @@ class backend:
   
 
   def setPublicKey (self, emailId, publicKey):
-    print(publicKey)
+    # print(publicKey)
     d = databaseConnection()
     cursor = d.openDbConnection()
     # e, kty, n
