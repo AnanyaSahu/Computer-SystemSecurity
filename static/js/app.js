@@ -208,7 +208,7 @@ async function sendMsg(){
     console.log(UserDetails.pubKey)
     console.log('message', message)
     // encryptMessageText = encryptMessage(UserDetails.pubKey, message)
-    const encryptMessageText = await encryptWithPublicKey(UserDetails.pubKey, message);
+    const encryptMessageText = await encryptWithPublicKey(publicKey, message);
     // .then(response =>{
     //     console.log(response)
     // });
