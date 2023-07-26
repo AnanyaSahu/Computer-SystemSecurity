@@ -23,7 +23,7 @@ def  createMessageForUser(userId):
 
 
 @app.route('/getUser', methods=['GET'])
-def  getUser(userId):
+def  getUser():
     b = backend()
     return b.checkUserAvailabliity(request.json)
 
@@ -50,7 +50,7 @@ def  setPublicKey(emailId):
 
 
 @app.route('/createUser', methods=['POST'])
-def  createUser(emailId):
+def  createUser():
     b = backend()
     return b.createUser(request.json['email'])
 
