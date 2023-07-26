@@ -28,12 +28,12 @@ class backend:
   
 
         # this method will create the message
-  def createMessageForUser(self,userId, params):
+  def createMessageForUser(self,message, recieverId, senderId):
     d = databaseConnection()
     cursor = d.openDbConnection()
     query = "insert into [dbo].[notifications]  values (?,?,?,?)" 
     # encryptedMsg = self.fernetObj.encrypt(params['message'])
-    c= cursor.execute(query, str( userId),  str(params['recieverId']), params['message'] , 0)
+    c= cursor.execute(query, str( senderId),  str(recieverId), message , 0)
     c.commit()
     # record = c.fetchall()
     # r= [tuple(row) for row in record]

@@ -10,22 +10,22 @@ app = Flask(__name__)
 
 
 
-@app.route('/getMsg/<userId>', methods=['GET'])
-def  getMessagesForUser(userId):
+@app.route('/getMsg', methods=['GET'])
+def  getMessagesForUser():
     b = backend()
-    return b.getMessagesForUser(userId)
+    return b.getMessagesForUser(request.get_json('userId'))
 
 @app.route('/createMsg/<userId>', methods=['POST'])
 def  createMessageForUser(userId):
     # request.json
     b = backend()
-    return b.createMessageForUser(userId, request.json)
+    return b.createMessageForUser(request.get_json('message'), request.get_json('recieverId'),request.get_json('sender'))
 
 
 @app.route('/getUser', methods=['GET'])
 def  getUser():
     b = backend()
-    return b.checkUserAvailabliity(request.json)
+    return b.checkUserAvailabliity(request.get_json('userId'))
 
 @app.route('/deleteMsg/<msgId>', methods=['PUT'])
 def  deleteUserMessages(msgId):
@@ -37,23 +37,20 @@ def  getMessage(msgId):
     b = backend()
     return b.getMessage(msgId)
 
-@app.route('/clearKey/<emailId>', methods=['PUT'])
+@app.route('/clearKey', methods=['PUT'])
 def  removeUserPublicKey(emailId):
     b = backend()
-    return b.deleteUserMessages(emailId)
+    return b.deleteUserMessages(request.get_json('emailID'))
 
-@app.route('/generateKey/<emailId>', methods=['PUT'])
+@app.route('/generateKey', methods=['PUT'])
 def  setPublicKey(emailId):
     b = backend()
-    return b.setPublicKey(emailId, request.json)
+    return b.setPublicKey(request.get_json('emailID'), request.get_json('publicKey'))
 
 
 
 @app.route('/createUser', methods=['POST'])
 def  createUser():
-    print('in create user python')
-    print('body   ---> ',request.get_json('emailId'))
-    print('in create user python')
     b = backend()
     return b.createUser(request.get_json('emailId'))
 

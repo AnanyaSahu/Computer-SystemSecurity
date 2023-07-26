@@ -14,11 +14,14 @@ let loggedInUSer = {
 }
 
 function getMsgsForUser(userId) {
-    userId = '2'
+    // userId = '2'
     var msgEle = document.getElementById("messages");
     ele ='' 
-    fetch(prefix+'/getMsg/'+userId, {
+    fetch(prefix+'/getMsg', {
         method: 'GET',
+        body: JSON.stringify({
+            userId:userId
+        })
     }).then(response => response.json())
     .then((data) => {
     
@@ -146,6 +149,7 @@ function checkUserAvailabliity(){
     ele ='' 
     fetch('/getUser', {
         method: 'GET',
+        body: JSON.stringify({ userId :userId }),
     }).then(response => response.json())
     .then((data) => {
         if(data.rows.length == 0) {
@@ -189,12 +193,12 @@ function sendMsg(){
     encryptMessage = encryptMessage(UserDetails.pubKey, message)
     console.log(encryptMessage)
 
-    const response =  fetch('/createMsg/'+sender, {
+    const response =  fetch('/createMsg', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message:encryptMessage , recieverId:recipient }),
+        body: JSON.stringify({ message:encryptMessage , recieverId:recipient, sender:sender }),
     });
 
     if (response.ok) {
@@ -208,6 +212,9 @@ function sendMsg(){
 function clearPublicKey(res){
         fetch(prefix+'/clearKey/'+UserDetails.emailId, {
             method: 'PUT',
+            body: JSON.stringify({
+                emailID: UserDetails.emailId,
+            })
         }).then(response => response.json())
         .then((data) => {
  
@@ -221,16 +228,17 @@ function clearPublicKey(res){
 
 
 function savePublicKey(publicKey){
-    fetch(prefix+'/generateKey/'+UserDetails.emailId, {
+    fetch(prefix+'/generateKey', {
         method: 'PUT',
         body: JSON.stringify({
+            emailID: UserDetails.emailId,
             publicKey:publicKey 
         })
     }).then(response => response.json())
     .then((data) => {
 
 }).catch( err => {
-    alert('unable to delete user key')
+    alert('unable to save user key')
     console.log(err)
   })
 
