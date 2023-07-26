@@ -85,9 +85,9 @@ function navigate(page) {
 }
 
 
-function getUSerData(response) {
+function getUSerData(req) {
     fetch('https://graph.facebook.com/' + 
-    response.userID+"?fields=id,name,email&access_token="+ response.accessToken ).then(response => response.json())
+    req.userID+"?fields=id,name,email&access_token="+ req.accessToken ).then(response => response.json())
     .then((data) => {
         console.log('user Data from facebook')
         console.log(data)
