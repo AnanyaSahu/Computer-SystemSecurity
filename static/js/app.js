@@ -192,7 +192,7 @@ async function checkUserAvailabliity(){
 async function sendMsg(){
     const publicKey = await window.crypto.subtle.importKey(
         "jwk",
-        publicKeyData,
+        UserDetails.pubKey,
         {
             name: "RSA-OAEP",
             hash: { name: "SHA-256" },
