@@ -27,6 +27,15 @@
     </div>
 
     <script>
+
+    window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '242013298711294',
+            cookie     : true,                     // Enable cookies to allow the server to access the session.
+            xfbml      : true,                     // Parse social plugins on this webpage.
+            version    : 'v6.0'           // Use this Graph API version for this call.
+          });
+
         function logout() {
             FB.logout(function(response) {
               // user is now logged out
