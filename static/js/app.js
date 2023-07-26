@@ -13,11 +13,11 @@ let loggedInUSer = {
     name: ''
 }
 
-function getMsgsForUser(userId) {
+function getMsgsForUser() {
     // userId = '2'
     var msgEle = document.getElementById("messages");
     ele ='' 
-    fetch(prefix+'/getMsg'+userId, {
+    fetch(prefix+'/getMsg'+loggedInUSer.email, {
         method: 'GET',
 
     }).then(response => response.json())
