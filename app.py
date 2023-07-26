@@ -46,7 +46,7 @@ def  removeUserPublicKey(emailId):
 @app.route('/generateKey', methods=['PUT'])
 def  setPublicKey():
     b = backend()
-    return b.setPublicKey(request.get_json('emailID'), request.get_json('publicKey')['publicKey'])
+    return b.setPublicKey(request.get_json('emailID')['emailID'], request.get_json('publicKey')['publicKey'])
 
 
 
