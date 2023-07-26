@@ -84,7 +84,7 @@ class backend:
   def setPublicKey (self, emailId, publicKey):
     d = databaseConnection()
     cursor = d.openDbConnection()
-    query = "update [dbo].[userDetails] set [pubKey] = '"+publicKey+"' where [email]= "+str(emailId)+";" 
+    query = "update [dbo].[userDetails] set [pubKey] = "+publicKey+" where [email]= "+str(emailId)+";" 
     c = cursor.execute(query)
     c.commit()
     return {'msgs': 'Logged in successfully, key generated'}

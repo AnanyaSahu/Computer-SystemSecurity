@@ -231,7 +231,7 @@ function savePublicKey(publicKey){
     fetch(prefix+'/generateKey', {
         method: 'PUT',
         body: JSON.stringify({
-            emailID: UserDetails.emailId,
+            emailID: loggedInUSer.email,
             publicKey:JSON.stringify(publicKey) 
         })
     }).then(response => response.json())
