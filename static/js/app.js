@@ -56,8 +56,9 @@ async function showMsg(msg) {
             true,
             ["decrypt"]
         );
-        console.log('decrypted msg',await decryptWithPrivateKey(privateKey, listOfMessages[msg][1]))
-        alert(await decryptWithPrivateKey(privateKey, listOfMessages[msg][1]))
+        const decryptedMSgText = await decryptWithPrivateKey(privateKey, listOfMessages[msg][1])
+        console.log('decrypted msg',decryptedMSgText)
+        alert(decryptedMSgText)
 }
 
 function createMsgsForUser() {

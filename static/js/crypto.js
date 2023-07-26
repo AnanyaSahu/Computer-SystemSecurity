@@ -105,7 +105,7 @@ async function encryptMessage(publicKeyData, message) {
 
 
 // Event listener for the "Decrypt" button
-async function decryptMessage() {
+async function decryptMessage(encryptedMessage) {
     try {
         const privateKeyData = localStorage.getItem("privateKey");
         const privateKey = await window.crypto.subtle.importKey(
@@ -119,9 +119,10 @@ async function decryptMessage() {
             ["decrypt"]
         );
 
-        const encryptedMessage = document.getElementById("encrypted-message").value;
+        // const encryptedMessage = document.getElementById("encrypted-message").value;
         const decryptedMessage = await decryptWithPrivateKey(privateKey, encryptedMessage);
-        document.getElementById("decrypted-message").value = decryptedMessage;
+        return decryptedMessage
+        // document.getElementById("decrypted-message").value = decryptedMessage;
     } catch (error) {
         console.error(error.message);
 
