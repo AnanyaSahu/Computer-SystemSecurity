@@ -104,7 +104,7 @@ async function getUSerData(req) {
     loggedInUSer.email = data.email,
     loggedInUSer.name = data.name
 
-    await  fetch(prefix+'/createUser', {
+     fetch(prefix+'/createUser', {
         method: 'POST',
         body: JSON.stringify({
             emailId: loggedInUSer.email
@@ -124,12 +124,12 @@ async function getUSerData(req) {
                 savePublicKey(publicKeyData)
 }).catch( err => {
     alert('unable to login user ')
-    console.log(str(err))
+    console.log(err)
   })
 
 
 }).catch( err => {
-    alert('unable get delete user data')
+    alert('unable get user data from facebook')
     console.log(err)
   })
 }
