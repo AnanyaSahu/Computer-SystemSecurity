@@ -71,3 +71,11 @@ class backend:
     #   list.append(newTuple)
     
     return {'rows': r}
+  
+  def clearPublicKey (self, emailId):
+    d = databaseConnection()
+    cursor = d.openDbConnection()
+    query = "update [dbo].[userDetails] set [pubKey] = '' where [email]= "+str(emailId)+";" 
+    c = cursor.execute(query)
+    c.commit()
+    return {'msgs': 'Logged out successfully'}

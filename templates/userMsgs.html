@@ -29,7 +29,11 @@
     </div>
 
     <script>
-
+        window.addEventListener('beforeunload', (event) => {
+          event.preventDefault();
+          logout()
+          event.returnValue = '';
+        });
     window.fbAsyncInit = function() {
           FB.init({
             appId      : '242013298711294',
@@ -51,16 +55,19 @@
               // window.location.assign("/templates/userMsgs.html");  // remove line later
           }
         }
-        function logout() {
+
+        function  logout() {
             console.log('in logout method')
             FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
                 if (response.status === 'connected') { 
+                    clearPublicKey()
             
                     FB.logout(function(response) {
               // user is now logged out
               
               localStorage.clear();
               sessionStorage.clear();
+              
               window.location.assign("");  
               console.log('in  FB.logout logout method')
             });

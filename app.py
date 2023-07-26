@@ -37,6 +37,10 @@ def  getMessage(msgId):
     b = backend()
     return b.getMessage(msgId)
 
+@app.route('/clearKey/<emailId>', methods=['PUT'])
+def  removeUserPublicKey(emailId):
+    b = backend()
+    return b.deleteUserMessages(emailId)
 
 # This will render the template on cloud
 @app.route('/createMsg')
@@ -48,12 +52,13 @@ def  createMsgPage():
 def  userMsgsPage():
     return render_template('userMsgs.html')
 
+
 # This will render the template on cloud
 @app.route('/')
 def  landPage():
     return render_template('index.html')
 
 if __name__ == "__main__":
-     app.run(host='0.0.0.0',port='8080')
-#  app.run(host='0.0.0.0',port='8080', ssl_context=('../cert.pem', '../privkey.pem'))
+    #  app.run(host='0.0.0.0',port='8080')
+ app.run(host='0.0.0.0',port='8080', ssl_context=('../cert.pem', '../privkey.pem'))
 

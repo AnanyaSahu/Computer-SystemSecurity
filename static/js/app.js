@@ -3,6 +3,10 @@ const prefix = 'http://127.0.0.1:8080'
 const prefix1 = "http://127.0.0.1:5500"
 
 let listOfMessages = []
+let UserDetails = {
+    emailId: '',
+    pubKey: ''
+}
 
 function getMsgsForUser(userId) {
     userId = '2'
@@ -91,6 +95,8 @@ function getUSerData(req) {
     .then((data) => {
         console.log('user Data from facebook')
         console.log(data)
+        UserDetails.emailId = data.email;
+      
 
 //         email
 // : 
@@ -160,4 +166,18 @@ function sendMsg(){
     } else {
         alert('There is no user with this username, try a valid username please.');
     }
+}
+
+
+function clearPublicKey(res){
+        fetch(prefix+'/clearKey/'+UserDetails.emailId, {
+            method: 'PUT',
+        }).then(response => response.json())
+        .then((data) => {
+ 
+    }).catch( err => {
+        alert('unable to delete user key')
+        console.log(err)
+      })
+    
 }
