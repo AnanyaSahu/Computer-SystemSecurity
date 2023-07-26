@@ -90,10 +90,10 @@ class backend:
     return {'msgs': 'Logged in successfully, key generated'}
   
 
-  def createUser(self, userEmail):
+  def createUser(self, params):
     d = databaseConnection()
     cursor = d.openDbConnection()
-    query = "INSERT INTO [dbo].[userDetails] ([email],[pubKey]) VALUES ('" + userEmail+"','');" 
+    query = "INSERT INTO [dbo].[userDetails] ([email],[pubKey]) VALUES ('" + params['emailId']+"','');" 
     c = cursor.execute(query)
     c.commit()
     return {'msgs': 'Logged in successfully, key generated'}
