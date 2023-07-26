@@ -21,6 +21,12 @@ def  createMessageForUser(userId):
     b = backend()
     return b.createMessageForUser(userId, request.json)
 
+
+@app.route('/getUser/<userId>', methods=['GET'])
+def  getUser(userId):
+    b = backend()
+    return b.checkUserAvailabliity(userId)
+
 @app.route('/deleteMsg/<msgId>', methods=['PUT'])
 def  deleteUserMessages(msgId):
     b = backend()
@@ -48,6 +54,6 @@ def  landPage():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    #  app.run(host='0.0.0.0',port='8080')
- app.run(host='0.0.0.0',port='8080', ssl_context=('../cert.pem', '../privkey.pem'))
+     app.run(host='0.0.0.0',port='8080')
+#  app.run(host='0.0.0.0',port='8080', ssl_context=('../cert.pem', '../privkey.pem'))
 

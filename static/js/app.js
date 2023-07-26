@@ -106,3 +106,55 @@ function getUSerData(req) {
     console.log(err)
   })
 }
+
+
+function checkUserAvailabliity(){
+    var messageArea = document.getElementById('message-area');
+    var sendBtn = document.getElementById('send-btn');
+    var notFound = document.getElementById('userNotFound');  
+    // userId = '2'
+    var userId =  document.getElementById('recipient').value;
+    ele ='' 
+    fetch('/getUser/'+userId, {
+        method: 'GET',
+    }).then(response => response.json())
+    .then((data) => {
+        if(data.rows.length == 0) {
+            notFound.innerHTML = "<div>User is not available</div>"
+            //no user
+        } else {
+            messageArea.style.display = 'block'
+            sendBtn.style.display = 'block'
+
+            // email = data[0][0]
+            // pubkey = data[0][1]
+        //    user is online
+        }
+}).catch( err => {
+    alert('user not available')
+    console.log(err)
+  })
+}
+
+
+function sendMsg(){
+    const messageForm = document.getElementById('messageForm');
+    e.preventDefault();
+    const sender = '1'; // Replace this with the actual sender's username.
+    const recipient = document.getElementById('recipient').value;
+    const message = document.getElementById('message').value;
+
+    const response =  fetch('/createMsg/'+sender, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message:message , recieverId:recipient }),
+    });
+
+    if (response.ok) {
+        alert('Message sent successfully!');
+    } else {
+        alert('There is no user with this username, try a valid username please.');
+    }
+}

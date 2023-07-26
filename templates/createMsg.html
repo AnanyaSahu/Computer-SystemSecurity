@@ -70,42 +70,23 @@
 <body>
     <div class="message-container">
       <div><button onclick="navigate('readMsg')">Back</button></div>
-        <form id="messageForm">
+        <div id="messageForm">
         
             <div class="input-group">
                 <label for="recipient">Recipient:</label>
                 <input type="text" id="recipient" name="recipient" required>
+                <button class="submit-button" onclick="checkUserAvailabliity()">Check Availability</button>
+                <div id="userNotFound"></div>
             </div>
-            <div class="input-group">
+            <div class="input-group" id="message-area">
                 <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
+                <textarea id="message" name="message" ></textarea>
             </div>
-            <button class="submit-button" type="submit">Send Message</button>
-        </form>
+            <button class="submit-button" onclick="sendMsg()" id="send-btn">Send Message</button>
+          </div>
     </div>
 
     <script>
-        const messageForm = document.getElementById('messageForm');
-        messageForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const sender = '1'; // Replace this with the actual sender's username.
-            const recipient = document.getElementById('recipient').value;
-            const message = document.getElementById('message').value;
-
-            const response = await fetch('/createMsg/'+sender, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ message:message , recieverId:recipient }),
-            });
-
-            if (response.ok) {
-                alert('Message sent successfully!');
-            } else {
-                alert('There is no user with this username, try a valid username please.');
-            }
-        });
     </script>
 </body>
 

@@ -82,3 +82,11 @@ body {
 .message-item p {
     margin: 0;
 }
+
+#message-area{
+  display: none;
+}
+
+#send-btn{
+  display: none;
+}

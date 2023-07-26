@@ -58,3 +58,16 @@ class backend:
     r= [tuple(row) for row in record]
     return {'rows': r}
      
+      # this method will get the message
+  def checkUserAvailabliity(self,userId):
+    list = []
+    d = databaseConnection()
+    cursor = d.openDbConnection()
+    query = "select [email],[pubKey] from [dbo].[userDetails] where [email] = "+str(userId)+";" 
+    record = cursor.execute(query).fetchall()
+    r= [tuple(row) for row in record]
+    # for tup in r:
+    #   newTuple = (tup[0], self.fernetObj.decrypt(tup[1]), tup[2])
+    #   list.append(newTuple)
+    
+    return {'rows': r}
