@@ -14,9 +14,14 @@ let loggedInUSer = {
 
 // get msg for user, decrypting it nad then showing it to user
 async function getMsgsForUser() {
+
+    privateKeyData = window.name
+    console.log(' console.log( window.name) privateKeyData')
+    console.log( privateKeyData)
+    // decryptWithPrivateKey
     const privateKey = await window.crypto.subtle.importKey(
         "jwk",
-        JSON.parse(localStorage.getItem("privateKey")),
+        JSON.parse(privateKeyData),
         {
             name: "RSA-OAEP",
             hash: { name: "SHA-256" },
