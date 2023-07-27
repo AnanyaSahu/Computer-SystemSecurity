@@ -45,17 +45,6 @@ document.getElementById('userName').innerHTML = sessionStorage.getItem('loggedIn
           });
 
         };
-        function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-                  // The current login status of the person.
-          if (response.status === 'connected') { 
-            getUSerData(response.authResponse)  // Logged into your webpage and Facebook.
-            testAPI();  
-          } else {                                 // Not logged into your webpage or we are unable to tell.
-            document.getElementById('status').innerHTML = 'Please log ' +
-              'into this webpage.';
-
-          }
-        }
 
         function  logout() {
             FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.

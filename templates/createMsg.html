@@ -11,12 +11,53 @@
 
     
     <script src="{{ url_for('static', filename='js/crypto.js') }}"></script> 
+    <!-- Load the JS SDK asynchronously -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
     <!-- FOr local -->
 
     <!-- <link rel="stylesheet"  href= "../static/css/global.css">
     <script src="../static/js/app.js" type="text/javascript"></script>
     <script src="../static/js/crypto.js" type="text/javascript"></script> -->
-
+    <script>
+      document.getElementById('userName').innerHTML = sessionStorage.getItem('loggedInUSername')
+      
+              window.addEventListener('beforeunload', (event) => {
+                event.preventDefault();
+                logout()
+                event.returnValue = '';
+              });
+      
+              // code is taken from https://developers.facebook.com/docs/facebook-login/web/
+          window.fbAsyncInit = function() {
+                FB.init({
+                  appId      : '242013298711294',
+                  cookie     : true,                     // Enable cookies to allow the server to access the session.
+                  xfbml      : true,                     // Parse social plugins on this webpage.
+                  version    : 'v6.0'           // Use this Graph API version for this call.
+                });
+      
+              };
+      
+              function  logout() {
+                  FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+                      if (response.status === 'connected') { 
+                          clearPublicKey()
+                  
+                          FB.logout(function(response) {
+                    // user is now logged out
+      
+                    
+                    window.location.assign("/");  
+                    console.log('in  FB.logout logout method')
+                  });
+                } 
+                
+                });
+                 
+              }
+      
+          </script>
 </head>
 
 <body>
