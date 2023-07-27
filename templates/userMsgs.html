@@ -22,15 +22,17 @@
 
 <body>
     <div class="message-box">
-        <h2>Welcome, YourUsername!</h2>
+        <h2>Welcome</h2><h2 id ='userName'></h2>
         <button onclick="javascript:logout();">Logout from Facebook</button>
-        <div><button onclick="navigate('createMsg')">+</button></div>
+        <div><button onclick="navigate('createMsg')">Create New Message</button></div>
         <br>
         <div><button onclick="getMsgsForUser()">Get New Messages</button></div>
         <div id="messages"></div>
     </div>
 
     <script>
+document.getElementById('userName').innerHTML = sessionStorage.getItem('loggedInUSeremail')
+
         // window.addEventListener('beforeunload', (event) => {
         //   event.preventDefault();
         //   logout()
@@ -84,37 +86,6 @@
            
         }
 
-
-        // async function fetchMessages() {
-        //     try {
-        //         const response = getMsgsForUser('');
-                
-
-        //         const messagesDiv = document.getElementById('messages');
-        //         messagesDiv.innerHTML = '';
-
-        //         if (data.messages.length === 0) {
-        //             messagesDiv.innerHTML = '<p> No messages yet. </p>';
-        //         } else {
-        //             data.messages.forEach((message) => {
-        //                 const messageItem = document.createElement('div');
-        //                 messageItem.classList.add('message-item');
-        //                 messageItem.innerHTML = `
-        //       <p>From: ${message.sender}</p>
-        //       <p>${message.message}</p>
-        //     `;
-        //                 messagesDiv.appendChild(messageItem);
-        //             });
-        //         }
-        //     } catch (error) {
-        //         console.error('Failed to fetch messages:', error);
-        //     }
-        // }
-
-        // document.addEventListener('DOMContentLoaded', () => {
-        //     // fetchMessages();
-        //     getMsgsForUser();
-        // });
     </script>
 </body>
 
