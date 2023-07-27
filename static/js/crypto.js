@@ -1,3 +1,4 @@
+// this code is taken from https://8gwifi.org/docs/window-crypto-rsaoaep.jsp and modified
 // Generate RSA key pair
 async function generateRSAKeyPair() {
     return window.crypto.subtle.generateKey(

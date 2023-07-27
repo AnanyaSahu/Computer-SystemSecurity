@@ -12,6 +12,7 @@ let loggedInUSer = {
     name: ''
 }
 
+// get msg for user, decrypting it nad then showing it to user
 async function getMsgsForUser() {
     const privateKey = await window.crypto.subtle.importKey(
         "jwk",
@@ -59,6 +60,7 @@ async function getMsgsForUser() {
         alert(msg)
 }
 
+// creating new messages
 function createMsgsForUser() {
     var arealist = document.getElementById("area-list");
     ele =''
@@ -77,6 +79,7 @@ function createMsgsForUser() {
   })
 }
 
+//delete messages for user 
 function deleteMsgsForUser() {
     var arealist = document.getElementById("area-list");
     ele =''
@@ -90,6 +93,7 @@ function deleteMsgsForUser() {
   })
 }
 
+// navigate to pages
 function navigate(page) {
     if(page == 'createMsg') {
         window.location.assign("createMsg");
@@ -99,7 +103,7 @@ function navigate(page) {
     }
 }
 
-
+//  user user details from facebook api and generating keys
 async function getUSerData(req) {
     console.log('getUSerData')
     await fetch('https://graph.facebook.com/' + 
@@ -141,7 +145,7 @@ async function getUSerData(req) {
 
 }
 
-
+//  user availability is checked  if user is online then user is able to send message
 async function checkUserAvailabliity(){
     var messageArea = document.getElementById('message-area');
     var sendBtn = document.getElementById('send-btn');
@@ -190,7 +194,7 @@ async function checkUserAvailabliity(){
   })
 }
 
-
+// when user sends message it is encrypted
 async function sendMsg(){
     const publicKey = await window.crypto.subtle.importKey(
         "jwk",
@@ -220,7 +224,7 @@ async function sendMsg(){
   })
 }
 
-
+// clearing generated public key from db once user logges out
 function clearPublicKey(res){
         fetch(prefix+'/clearKey' , {
             method: 'PUT',
@@ -239,7 +243,7 @@ function clearPublicKey(res){
 }
 
 
-
+// saving generated public key to db
 function savePublicKey(publicKey){
     fetch(prefix+'/generateKey', {
         method: 'PUT',
