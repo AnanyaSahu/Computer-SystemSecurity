@@ -136,6 +136,28 @@ async function getUSerData(req) {
         console.log(data)
         sessionStorage.setItem('loggedInUSeremail',data.email)
         sessionStorage.setItem('loggedInUSername',data.name)
+        await fetch(prefix+'/createUser', {
+            method: 'POST',
+            body: JSON.stringify({
+                emailId: sessionStorage.getItem('loggedInUSername')
+            })
+        }).then(response => response.json())
+        .then(async (data) => {
+            alert('user logged in')
+                    // Generate and display the RSA public key
+                    const rsaKeyPair = await generateRSAKeyPair();
+                    const publicKey = rsaKeyPair.publicKey;
+                    const publicKeyData = await exportPublicKey(publicKey);
+                    const privateKey = rsaKeyPair.privateKey;
+                    const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
+                    localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
+                    console.log(publicKeyData)
+                    // console.log(privateKeyData)
+                    savePublicKey(publicKeyData)
+        }).catch( err => {
+        alert('unable to login user ')
+        console.log(err)
+        })
     // loggedInUSer.email = data.email,
     // loggedInUSer.name = data.name
 
@@ -147,28 +169,28 @@ async function getUSerData(req) {
     console.log(err)
   })
 
-  await fetch(prefix+'/createUser', {
-    method: 'POST',
-    body: JSON.stringify({
-        emailId: sessionStorage.getItem('loggedInUSername')
-    })
-}).then(response => response.json())
-.then(async (data) => {
-    alert('user logged in')
-            // Generate and display the RSA public key
-            const rsaKeyPair = await generateRSAKeyPair();
-            const publicKey = rsaKeyPair.publicKey;
-            const publicKeyData = await exportPublicKey(publicKey);
-            const privateKey = rsaKeyPair.privateKey;
-            const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
-            localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
-            console.log(publicKeyData)
-            // console.log(privateKeyData)
-            savePublicKey(publicKeyData)
-}).catch( err => {
-alert('unable to login user ')
-console.log(err)
-})
+//   await fetch(prefix+'/createUser', {
+//     method: 'POST',
+//     body: JSON.stringify({
+//         emailId: sessionStorage.getItem('loggedInUSername')
+//     })
+// }).then(response => response.json())
+// .then(async (data) => {
+//     alert('user logged in')
+//             // Generate and display the RSA public key
+//             const rsaKeyPair = await generateRSAKeyPair();
+//             const publicKey = rsaKeyPair.publicKey;
+//             const publicKeyData = await exportPublicKey(publicKey);
+//             const privateKey = rsaKeyPair.privateKey;
+//             const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
+//             localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
+//             console.log(publicKeyData)
+//             // console.log(privateKeyData)
+//             savePublicKey(publicKeyData)
+// }).catch( err => {
+// alert('unable to login user ')
+// console.log(err)
+// })
 }
 
 
