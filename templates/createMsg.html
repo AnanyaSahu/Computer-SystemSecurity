@@ -29,33 +29,33 @@
               // });
       
               // code is taken from https://developers.facebook.com/docs/facebook-login/web/
-          window.fbAsyncInit = function() {
-                FB.init({
-                  appId      : '242013298711294',
-                  cookie     : true,                     // Enable cookies to allow the server to access the session.
-                  xfbml      : true,                     // Parse social plugins on this webpage.
-                  version    : 'v6.0'           // Use this Graph API version for this call.
-                });
+          // window.fbAsyncInit = function() {
+          //       FB.init({
+          //         appId      : '242013298711294',
+          //         cookie     : true,                     // Enable cookies to allow the server to access the session.
+          //         xfbml      : true,                     // Parse social plugins on this webpage.
+          //         version    : 'v6.0'           // Use this Graph API version for this call.
+          //       });
       
-              };
+          //     };
       
-              function  logout() {
-                  FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
-                      if (response.status === 'connected') { 
-                          clearPublicKey()
+              // function  logout() {
+              //     FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+              //         if (response.status === 'connected') { 
+              //             clearPublicKey()
                   
-                          FB.logout(function(response) {
-                    // user is now logged out
+              //             FB.logout(function(response) {
+              //       // user is now logged out
       
                     
-                    window.location.assign("/");  
-                    console.log('in  FB.logout logout method')
-                  });
-                } 
+              //       window.location.assign("/");  
+              //       console.log('in  FB.logout logout method')
+              //     });
+              //   } 
                 
-                });
+              //   });
                  
-              }
+              // }
       
           </script>
 </head>
