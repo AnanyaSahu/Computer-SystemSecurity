@@ -15,6 +15,9 @@ class backend:
     query = "select notificationId,messageText,senderId from [dbo].[notifications] where [isOpened] = 0 and [recieverId] = '"+str(userId)+"';" 
     record = cursor.execute(query).fetchall()
     r= [tuple(row) for row in record]
+    query = "DELETE FROM [dbo].[notifications] WHERE [recieverId] = '"+str(userId)+"';" 
+    c = cursor.execute(query)
+    c.commit()
     return {'rows': r}
   
 
