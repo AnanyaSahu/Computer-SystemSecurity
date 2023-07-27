@@ -12,10 +12,6 @@
 <!-- Load the JS SDK asynchronously -->
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
-    <!-- FOr local -->
-
-    <!-- <link rel="stylesheet"  href= "../static/css/global.css">
-    <script src="../static/js/app.js" type="text/javascript"></script> -->
     <title>Message Inbox</title>
 
 </head>
@@ -38,6 +34,8 @@ document.getElementById('userName').innerHTML = sessionStorage.getItem('loggedIn
         //   logout()
         //   event.returnValue = '';
         // });
+
+        // code is taken from https://developers.facebook.com/docs/facebook-login/web/
     window.fbAsyncInit = function() {
           FB.init({
             appId      : '242013298711294',
@@ -48,40 +46,31 @@ document.getElementById('userName').innerHTML = sessionStorage.getItem('loggedIn
 
         };
         function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-          console.log('statusChangeCallback');
-          console.log(response);                   // The current login status of the person.
+                  // The current login status of the person.
           if (response.status === 'connected') { 
             getUSerData(response.authResponse)  // Logged into your webpage and Facebook.
             testAPI();  
           } else {                                 // Not logged into your webpage or we are unable to tell.
             document.getElementById('status').innerHTML = 'Please log ' +
               'into this webpage.';
-              // window.location.assign("/templates/userMsgs.html");  // remove line later
+
           }
         }
 
         function  logout() {
-            console.log('in logout method')
             FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
                 if (response.status === 'connected') { 
                     clearPublicKey()
             
                     FB.logout(function(response) {
               // user is now logged out
-              
-            //   localStorage.clear();
-            //   sessionStorage.clear();
+
               
               window.location.assign("/");  
               console.log('in  FB.logout logout method')
             });
-          } else {                                 // Not logged into your webpage or we are unable to tell.
-            // document.getElementById('status').innerHTML = 'Please log ' +
-            //   'into this webpage.';
-            //   // window.location.assign("/templates/userMsgs.html");  // remove line later
-          }
-           
-            // Returns the login status.
+          } 
+          
           });
            
         }

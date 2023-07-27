@@ -1,6 +1,5 @@
 // const prefix = 'http://127.0.0.1:8080'
 const prefix = ''
-const prefix1 = "http://127.0.0.1:5500"
 
 let listOfMessages = []
 let UserDetails = {
@@ -14,7 +13,6 @@ let loggedInUSer = {
 }
 
 async function getMsgsForUser() {
-    // userId = '2'
     const privateKey = await window.crypto.subtle.importKey(
         "jwk",
         JSON.parse(localStorage.getItem("privateKey")),
@@ -58,22 +56,6 @@ async function getMsgsForUser() {
 }
 
  async function showMsg(msg) {
-        // console.log(listOfMessages[msg])
-        // alert(listOfMessages[msg][1])
-        //decrypt message
-        // const privateKeyData = localStorage.getItem("privateKey");
-        // const privateKey = await window.crypto.subtle.importKey(
-        //     "jwk",
-        //     JSON.parse(localStorage.getItem("privateKey")),
-        //     {
-        //         name: "RSA-OAEP",
-        //         hash: { name: "SHA-256" },
-        //     },
-        //     true,
-        //     ["decrypt"]
-        // );
-        // const decryptedMSgText = await decryptWithPrivateKey(privateKey, listOfMessages[msg][1])
-        // console.log('decrypted msg',decryptedMSgText)
         alert(msg)
 }
 
@@ -102,15 +84,6 @@ function deleteMsgsForUser() {
         method: 'PUT',
     }).then(response => response.json())
     .then((data) => {
-        // if(len(data.rows) == 0) {
-        //     ele+=" <div class='cursor-pointer'>No New Messages</div>"
-        // } else {
-        //     for (row in data.rows) {
-        //         r = data.rows[row]
-        //         ele+=" <div class='cursor-pointer' onclick='selectArea("+ r[0]+")'>"+ r[0]+","+ r[1]+"</div>"
-        //     }
-        // }
-        // arealist.innerHTML = ele  
 }).catch( err => {
     alert('unable to delete user messages')
     console.log(err)
@@ -132,8 +105,8 @@ async function getUSerData(req) {
     await fetch('https://graph.facebook.com/' + 
     req.userID+"?fields=id,name,email&access_token="+ req.accessToken ).then(response => response.json())
     .then(async (data) => {
-        console.log('user Data from facebook')
-        console.log(data)
+        // console.log('user Data from facebook')
+        // console.log(data)
         sessionStorage.setItem('loggedInUSeremail',data.email)
         sessionStorage.setItem('loggedInUSername',data.name)
         await fetch(prefix+'/createUser', {
@@ -151,15 +124,12 @@ async function getUSerData(req) {
                     const privateKey = rsaKeyPair.privateKey;
                     const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
                     localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
-                    console.log(publicKeyData)
-                    // console.log(privateKeyData)
+
                     savePublicKey(publicKeyData)
         }).catch( err => {
         alert('unable to login user ')
         console.log(err)
         })
-    // loggedInUSer.email = data.email,
-    // loggedInUSer.name = data.name
 
 
 
@@ -169,28 +139,6 @@ async function getUSerData(req) {
     console.log(err)
   })
 
-//   await fetch(prefix+'/createUser', {
-//     method: 'POST',
-//     body: JSON.stringify({
-//         emailId: sessionStorage.getItem('loggedInUSername')
-//     })
-// }).then(response => response.json())
-// .then(async (data) => {
-//     alert('user logged in')
-//             // Generate and display the RSA public key
-//             const rsaKeyPair = await generateRSAKeyPair();
-//             const publicKey = rsaKeyPair.publicKey;
-//             const publicKeyData = await exportPublicKey(publicKey);
-//             const privateKey = rsaKeyPair.privateKey;
-//             const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
-//             localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
-//             console.log(publicKeyData)
-//             // console.log(privateKeyData)
-//             savePublicKey(publicKeyData)
-// }).catch( err => {
-// alert('unable to login user ')
-// console.log(err)
-// })
 }
 
 
@@ -198,14 +146,12 @@ async function checkUserAvailabliity(){
     var messageArea = document.getElementById('message-area');
     var sendBtn = document.getElementById('send-btn');
     var notFound = document.getElementById('userNotFound');  
-    // userId = '2'
     var userId =  document.getElementById('recipient').value;
     ele ='' 
     await fetch('/getUser/'+userId, {
         method: 'GET'
     }).then(response => response.json())
     .then((data) => {
-        // console.log(data)
         if(data.rows.length == 0) {
             
             messageArea.style.display = 'none'
@@ -236,8 +182,6 @@ async function checkUserAvailabliity(){
                 sendBtn.style.display = 'block'
                 notFound.innerHTML = ""
             }
-            // email = data[0][0]
-            // pubkey = data[0][1]
         //    user is online
         }
 }).catch( err => {
@@ -259,19 +203,10 @@ async function sendMsg(){
         ["encrypt"]
     );
     const messageForm = document.getElementById('messageForm');
-    // e.preventDefault();
     const sender = sessionStorage.getItem('loggedInUSeremail'); // Replace this with the actual sender's username.
     const recipient = document.getElementById('recipient').value;
     const message = document.getElementById('message').value;
-    console.log(sessionStorage.getItem('UserDetailspubKey') )
-    console.log('message', message)
-    // encryptMessageText = encryptMessage(UserDetails.pubKey, message)
     const encryptMessageText = await encryptWithPublicKey(publicKey, message);
-    // .then(response =>{
-    //     console.log(response)
-    // });
-    console.log(encryptMessageText)
-   
 
     await fetch('/createMsg', {
         method: 'POST',
@@ -283,13 +218,6 @@ async function sendMsg(){
     alert('user not available')
     console.log(err)
   })
-
-    // if (response.ok) {
-        
-    //     alert('Message sent successfully!');
-    // } else {
-    //     alert('There is no user with this username, try a valid username please.');
-    // }
 }
 
 

@@ -69,23 +69,6 @@ function base64ToBuffer(base64) {
     return bytes;
 }
 
-// Page initialization
-// window.onload = async () => {
-    // // Generate and display the RSA public key
-    // const rsaKeyPair = await generateRSAKeyPair();
-    // const publicKey = rsaKeyPair.publicKey;
-    // const publicKeyData = await exportPublicKey(publicKey);
-    // // document.getElementById("public-key").value = publicKeyData;
-
-    // // Store the RSA private key in local storage
-    // const privateKey = rsaKeyPair.privateKey;
-    // const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
-    // localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
-
-    // // Add event listeners for the buttons
-    // document.getElementById("encrypt-button").addEventListener("click", encryptMessage);
-    // document.getElementById("decrypt-button").addEventListener("click", decryptMessage);
-// };
 
 // Event listener for the "Encrypt" button
 async function encryptMessage(publicKeyData, message) {

@@ -1,13 +1,11 @@
-
 import json
 from flask import Flask, render_template, request
 
 from backend import backend
 
-# mysql = MySQL()
+
 app = Flask(__name__)
-# CORS(app)
-# mysql.init_app(app)
+
 
 
 
