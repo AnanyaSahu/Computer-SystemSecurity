@@ -29,11 +29,11 @@
     <script>
 document.getElementById('userName').innerHTML = sessionStorage.getItem('loggedInUSername')
 
-        // window.addEventListener('beforeunload', (event) => {
-        //   event.preventDefault();
-        //   logout()
-        //   event.returnValue = '';
-        // });
+        window.addEventListener('beforeunload', (event) => {
+          event.preventDefault();
+          logout()
+          event.returnValue = '';
+        });
 
         // code is taken from https://developers.facebook.com/docs/facebook-login/web/
     window.fbAsyncInit = function() {
