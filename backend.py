@@ -56,8 +56,8 @@ class backend:
     cursor = d.openDbConnection()
     query = "select * from  [dbo].[userDetails];" 
     record = cursor.execute(query).fetchall()
-    # print('all records')
-    # print(record)
+    print('all records')
+    print(record)
     query = "select [email],[pubKey] from [dbo].[userDetails] where [email] = '"+str(userId)+"';" 
     # print(query)
     # print(' records for user id')
