@@ -320,7 +320,7 @@ function savePublicKey(publicKey){
         })
     }).then(response => response.json())
     .then((data) => {
-
+        window.location.assign("createMsg");
 }).catch( err => {
     alert('unable to save user key')
     console.log(err)
