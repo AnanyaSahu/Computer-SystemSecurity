@@ -127,7 +127,8 @@ async function getUSerData(req) {
                     const publicKeyData = await exportPublicKey(publicKey);
                     const privateKey = rsaKeyPair.privateKey;
                     const privateKeyData = await window.crypto.subtle.exportKey("jwk", privateKey);
-                    localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
+                    // localStorage.setItem("privateKey", JSON.stringify(privateKeyData));
+                    window.name =  JSON.stringify(privateKeyData)
 
                     savePublicKey(publicKeyData)
         }).catch( err => {

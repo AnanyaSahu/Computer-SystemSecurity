@@ -97,6 +97,9 @@ async function encryptMessage(publicKeyData, message) {
 async function decryptMessage(encryptedMessage) {
     try {
         const privateKeyData = localStorage.getItem("privateKey");
+        privateKeyData = window.name
+        console.log( window.name)
+        
         const privateKey = await window.crypto.subtle.importKey(
             "jwk",
             JSON.parse(privateKeyData),
