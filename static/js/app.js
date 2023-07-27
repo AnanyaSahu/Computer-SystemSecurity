@@ -301,7 +301,8 @@ function clearPublicKey(res){
             })
         }).then(response => response.json())
         .then((data) => {
- 
+            localStorage.clear();
+            sessionStorage.clear();
     }).catch( err => {
         alert('unable to delete user key')
         console.log(err)
